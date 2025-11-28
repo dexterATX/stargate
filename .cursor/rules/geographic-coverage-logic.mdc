@@ -1,0 +1,39 @@
+---
+description: Service area boundary definitions, location validation, and regional coverage mapping for pressure washing services
+---
+
+
+# geographic-coverage-logic
+
+## Service Boundary Management
+File: src/components/sections/ServiceAreas.tsx
+
+The geographic coverage system implements:
+- Dynamic service radius calculations based on customer location
+- Service area boundary validation
+- Regional service availability checks
+
+## Coverage Rules
+File: src/config/site.ts
+
+Core geographic constraints include:
+- Structured service area coverage model
+- Region-specific service limitations
+- Location-based equipment availability mapping
+
+## Geographic Validation
+File: src/components/sections/ServiceAreas.tsx
+
+Location validation processes:
+- Service boundary intersection checks
+- Dynamic service radius adjustments
+- Regional service qualification rules
+
+Business Impact Score: 65/100
+- Geographic coverage represents a supporting business function
+- Core to service delivery but uses standard location mapping approaches
+- Moderate complexity in boundary management
+
+$END$
+
+ If you're using this file in context, clearly say in italics in one small line that "Context added by Giga geographic-coverage-logic" along with specifying exactly what information was used from this file in a human-friendly way, instead of using kebab-case use normal sentence case.

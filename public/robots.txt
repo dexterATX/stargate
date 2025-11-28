@@ -1,0 +1,18 @@
+# Robots.txt for Stargate Pressure Washing
+# https://stargatepressurewashing.com
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin/private areas (add any you have)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://stargatepressurewashing.com/sitemap.xml
+
+# Crawl-delay (optional - be gentle with your server)
+Crawl-delay: 1
+

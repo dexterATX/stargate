@@ -1,0 +1,18 @@
+[
+  {
+    "fileName": "main-overview.mdc",
+    "description": "Complete system overview covering the pressure washing business management system architecture, core components, and high-level business rules"
+  },
+  {
+    "fileName": "service-categorization-model.mdc",
+    "description": "Documentation of the hierarchical service categorization system, including residential/commercial classification, service type definitions, and icon mapping implementation"
+  },
+  {
+    "fileName": "geographic-coverage-logic.mdc",
+    "description": "Detailed documentation of service area boundary management, location validation algorithms, and regional coverage mapping implementation"
+  },
+  {
+    "fileName": "data-flow-architecture.mdc",
+    "description": "Documentation of data flow between core components, focusing on service area validation, testimonial management, and service categorization interactions"
+  }
+]
