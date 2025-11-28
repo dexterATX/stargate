@@ -13,20 +13,36 @@ const Masonry = dynamic(() => import("@/components/Masonry"), {
   ),
 });
 
-// All same height for even grid
+// Gallery items with varying heights for true masonry effect
 const galleryItems = [
+  // Our work
   { id: 1, img: "/images/poolAfter.png", height: 400 },
-  { id: 2, img: "/images/houseafter.png", height: 400 },
-  { id: 3, img: "/images/sidingafter.png", height: 400 },
-  { id: 4, img: "/images/poolBefore.png", height: 400 },
-  { id: 5, img: "/images/housebefore.png", height: 400 },
-  { id: 6, img: "/images/sidingbefore.png", height: 400 },
-  { id: 7, img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", height: 400 },
-  { id: 8, img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80", height: 400 },
-  { id: 9, img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80", height: 400 },
-  { id: 10, img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80", height: 400 },
+  { id: 2, img: "/images/houseafter.png", height: 520 },
+  { id: 3, img: "/images/sidingafter.png", height: 340 },
+  { id: 4, img: "/images/poolBefore.png", height: 460 },
+  { id: 5, img: "/images/housebefore.png", height: 380 },
+  { id: 6, img: "/images/sidingbefore.png", height: 440 },
+  // Houses & exteriors
+  { id: 7, img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", height: 500 },
+  { id: 8, img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80", height: 360 },
+  { id: 9, img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80", height: 420 },
+  { id: 10, img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80", height: 480 },
   { id: 11, img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80", height: 400 },
-  { id: 12, img: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&q=80", height: 400 },
+  { id: 12, img: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&q=80", height: 360 },
+  // More homes
+  { id: 13, img: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80", height: 440 },
+  { id: 14, img: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&q=80", height: 380 },
+  { id: 15, img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80", height: 500 },
+  { id: 16, img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80", height: 420 },
+  { id: 17, img: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&q=80", height: 360 },
+  { id: 18, img: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80", height: 480 },
+  // Driveways & patios
+  { id: 19, img: "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?w=600&q=80", height: 400 },
+  { id: 20, img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80", height: 440 },
+  { id: 21, img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80", height: 380 },
+  { id: 22, img: "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600&q=80", height: 520 },
+  { id: 23, img: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=80", height: 400 },
+  { id: 24, img: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80", height: 460 },
 ];
 
 export default function GalleryPage() {
@@ -44,7 +60,7 @@ export default function GalleryPage() {
         <Masonry
           items={galleryItems}
           ease="power3.out"
-          duration={0.7}
+          duration={0.6}
           stagger={0.05}
           animateFrom="bottom"
           scaleOnHover={true}
@@ -104,10 +120,10 @@ export default function GalleryPage() {
 
         /* Gallery Section */
         .gallery-section {
-          max-width: 1200px;
+          max-width: 1400px;
           margin: 0 auto;
-          padding: 0 20px;
-          min-height: 600px;
+          padding: 0 16px;
+          min-height: 800px;
         }
 
         /* Loading */
@@ -131,43 +147,10 @@ export default function GalleryPage() {
           to { transform: rotate(360deg); }
         }
 
-        /* Masonry Overrides */
-        .list {
-          position: relative;
-          width: 100%;
-          min-height: 600px;
-        }
-
-        .item-wrapper {
-          position: absolute;
-          will-change: transform, width, height, opacity;
-          padding: 8px;
-          cursor: pointer;
-          top: 0;
-          left: 0;
-        }
-
-        .item-wrapper > .item-img {
-          position: relative;
-          background-size: cover;
-          background-position: center center;
-          width: 100%;
-          height: 100%;
-          border-radius: 14px;
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-          transition: box-shadow 0.3s ease;
-        }
-
-        .item-wrapper:hover > .item-img {
-          box-shadow: 
-            0 12px 40px rgba(0, 0, 0, 0.5),
-            0 0 0 2px rgba(124, 58, 237, 0.5);
-        }
-
         /* CTA */
         .gallery-cta {
           max-width: 1200px;
-          margin: 50px auto 0;
+          margin: 60px auto 0;
           padding: 0 20px;
         }
 
@@ -220,12 +203,8 @@ export default function GalleryPage() {
             font-size: 3.25rem;
           }
 
-          .item-wrapper {
-            padding: 10px;
-          }
-
-          .item-wrapper > .item-img {
-            border-radius: 16px;
+          .gallery-section {
+            padding: 0 24px;
           }
 
           .cta-content {
@@ -244,8 +223,8 @@ export default function GalleryPage() {
             font-size: 3.5rem;
           }
 
-          .item-wrapper {
-            padding: 12px;
+          .gallery-section {
+            padding: 0 32px;
           }
 
           .cta-content {

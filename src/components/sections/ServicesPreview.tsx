@@ -16,36 +16,42 @@ const services = [
   {
     id: "house-washing",
     title: "House Washing",
+    shortTitle: "House",
     description: "Soft wash your home's exterior to remove dirt, mold, and mildew safely.",
     icon: Home,
   },
   {
     id: "driveway-cleaning",
     title: "Driveway Cleaning",
+    shortTitle: "Driveway",
     description: "Blast away oil stains, tire marks, and years of grime from concrete.",
     icon: Car,
   },
   {
     id: "roof-cleaning",
     title: "Roof Cleaning",
+    shortTitle: "Roof",
     description: "Gentle soft wash to remove black streaks and extend your roof's life.",
     icon: Building2,
   },
   {
     id: "pool-deck",
     title: "Pool Deck Cleaning",
+    shortTitle: "Pool Deck",
     description: "Make your pool area slip-free, clean, and ready for guests.",
     icon: Waves,
   },
   {
     id: "fence-cleaning",
     title: "Fence Cleaning",
+    shortTitle: "Fence",
     description: "Restore wood, vinyl, or aluminum fencing to like-new condition.",
     icon: Fence,
   },
   {
     id: "commercial",
     title: "Commercial",
+    shortTitle: "Commercial",
     description: "Storefronts, parking lots, and buildings that impress customers.",
     icon: Warehouse,
   },
@@ -66,8 +72,27 @@ export function ServicesPreview() {
           </p>
         </div>
 
-        {/* Services grid */}
-        <div className="services-grid">
+        {/* Mobile Grid - Compact 2-column layout */}
+        <div className="services-grid-mobile">
+          {services.map((service) => {
+            const Icon = service.icon;
+            return (
+              <Link 
+                key={service.id}
+                href={`/services#${service.id}`} 
+                className="service-card-mobile"
+              >
+                <div className="service-mobile-icon">
+                  <Icon size={20} />
+                </div>
+                <span className="service-mobile-title">{service.shortTitle}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Desktop Grid - Full cards */}
+        <div className="services-grid-desktop">
           {services.map((service) => {
             const Icon = service.icon;
             return (
@@ -119,7 +144,7 @@ export function ServicesPreview() {
         
         .services-header {
           text-align: center;
-          margin-bottom: 40px;
+          margin-bottom: 28px;
         }
         
         .services-badge {
@@ -136,26 +161,79 @@ export function ServicesPreview() {
         }
         
         .services-title {
-          font-size: 1.5rem;
+          font-size: 1.4rem;
           font-weight: 700;
           color: #fff;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
           letter-spacing: -0.02em;
         }
         
         .services-subtitle {
-          font-size: 15px;
+          font-size: 14px;
           color: #6b6b80;
           max-width: 500px;
           margin: 0 auto;
-          line-height: 1.6;
+          line-height: 1.5;
         }
-        
-        .services-grid {
+
+        /* Mobile Grid */
+        .services-grid-mobile {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 16px;
-          margin-bottom: 40px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+          margin-bottom: 28px;
+        }
+
+        .service-card-mobile {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          padding: 18px 10px 16px;
+          background: linear-gradient(165deg, rgba(124, 58, 237, 0.12) 0%, rgba(20, 20, 30, 0.95) 100%);
+          border: 1px solid rgba(124, 58, 237, 0.25);
+          border-radius: 14px;
+          text-decoration: none;
+          transition: all 0.2s;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card-mobile:active {
+          transform: scale(0.96);
+          background: rgba(124, 58, 237, 0.18);
+          border-color: rgba(124, 58, 237, 0.4);
+        }
+
+        .service-mobile-icon {
+          width: 46px;
+          height: 46px;
+          background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+        }
+
+        .service-mobile-icon svg {
+          width: 22px;
+          height: 22px;
+          stroke-width: 2;
+        }
+
+        .service-mobile-title {
+          font-size: 12px;
+          font-weight: 700;
+          color: #fff;
+          text-align: center;
+          line-height: 1.3;
+          letter-spacing: 0.01em;
+        }
+
+        /* Desktop Grid - Hidden on mobile */
+        .services-grid-desktop {
+          display: none;
         }
         
         .service-tilt-card {
@@ -164,7 +242,7 @@ export function ServicesPreview() {
         
         .service-card {
           display: block;
-          padding: 24px;
+          padding: 28px;
           background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 100%);
           border: 1px solid rgba(124, 58, 237, 0.15);
           border-radius: 16px;
@@ -180,32 +258,32 @@ export function ServicesPreview() {
         }
         
         .service-icon-wrap {
-          width: 48px;
-          height: 48px;
+          width: 56px;
+          height: 56px;
           background: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(124, 58, 237, 0.1) 100%);
           border: 1px solid rgba(124, 58, 237, 0.3);
-          border-radius: 12px;
+          border-radius: 14px;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 16px;
+          margin-bottom: 20px;
         }
         
         .service-icon {
-          width: 24px;
-          height: 24px;
+          width: 26px;
+          height: 26px;
           color: #a78bfa;
         }
         
         .service-title {
-          font-size: 18px;
+          font-size: 20px;
           font-weight: 600;
           color: #fff;
-          margin-bottom: 8px;
+          margin-bottom: 10px;
         }
         
         .service-desc {
-          font-size: 14px;
+          font-size: 15px;
           color: #8b8b9e;
           line-height: 1.6;
           margin-bottom: 16px;
@@ -238,11 +316,11 @@ export function ServicesPreview() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          padding: 14px 28px;
+          padding: 12px 24px;
           background: rgba(124, 58, 237, 0.15);
           border: 1px solid rgba(124, 58, 237, 0.3);
-          border-radius: 12px;
-          font-size: 14px;
+          border-radius: 10px;
+          font-size: 13px;
           font-weight: 600;
           color: #fff;
           text-decoration: none;
@@ -259,11 +337,22 @@ export function ServicesPreview() {
           height: 16px;
         }
         
-        /* Tablet */
+        /* Tablet - Switch to desktop grid */
         @media (min-width: 640px) {
           .services-section {
             padding: 50px 0;
             margin-top: -40px;
+          }
+
+          .services-grid-mobile {
+            display: none;
+          }
+
+          .services-grid-desktop {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
           }
           
           .services-container {
@@ -289,36 +378,6 @@ export function ServicesPreview() {
             font-size: 17px;
           }
           
-          .services-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-          }
-          
-          .service-card {
-            padding: 28px;
-          }
-          
-          .service-icon-wrap {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-          }
-          
-          .service-icon {
-            width: 26px;
-            height: 26px;
-          }
-          
-          .service-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-          }
-          
-          .service-desc {
-            font-size: 15px;
-          }
-          
           .services-view-all {
             padding: 16px 32px;
             font-size: 15px;
@@ -336,7 +395,7 @@ export function ServicesPreview() {
             max-width: 600px;
           }
           
-          .services-grid {
+          .services-grid-desktop {
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
           }

@@ -111,7 +111,6 @@ export function TestimonialsPreview() {
             direction="left"
             pauseOnHover={false}
             gap={20}
-            logoHeight={160}
             fadeOut={false}
             ariaLabel="Customer testimonials"
           />
@@ -141,7 +140,7 @@ export function TestimonialsPreview() {
         
         .testimonials-header {
           text-align: center;
-          margin-bottom: 10px;
+          margin-bottom: 32px;
           padding: 0 20px;
         }
         
@@ -189,7 +188,21 @@ export function TestimonialsPreview() {
         }
         
         .testimonials-loop-wrapper {
-          margin-bottom: 28px;
+          margin-bottom: 48px;
+        }
+
+        /* Override LogoLoop default sizing - CRITICAL for custom nodes */
+        .testimonials-loop-wrapper .logoloop {
+          --logoloop-logoHeight: auto;
+        }
+        
+        .testimonials-loop-wrapper .logoloop__item {
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        
+        .testimonials-loop-wrapper .logoloop__list {
+          align-items: stretch;
         }
         
         .review-card {
@@ -199,6 +212,7 @@ export function TestimonialsPreview() {
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 14px;
+          box-sizing: border-box;
         }
         
         .review-stars {
@@ -299,7 +313,7 @@ export function TestimonialsPreview() {
           }
           
           .testimonials-header {
-            margin-bottom: 12px;
+            margin-bottom: 36px;
           }
           
           .testimonials-star {

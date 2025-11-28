@@ -3,15 +3,30 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight, Zap } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  ChevronRight, 
+  Zap, 
+  Home, 
+  Wrench, 
+  Images, 
+  Users, 
+  DollarSign, 
+  MessageSquare,
+  Phone,
+  Star,
+  Shield
+} from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/about", label: "About" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/services", label: "Services", icon: Wrench },
+  { href: "/gallery", label: "Gallery", icon: Images },
+  { href: "/about", label: "About", icon: Users },
+  { href: "/pricing", label: "Pricing", icon: DollarSign },
+  { href: "/contact", label: "Contact", icon: MessageSquare },
 ];
 
 export function Header() {
@@ -82,48 +97,101 @@ export function Header() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Close button */}
-            <div className="mobile-menu-close">
+            {/* Header */}
+            <div className="mobile-menu-header">
+              <Link href="/" className="mobile-menu-logo" onClick={() => setIsMobileMenuOpen(false)}>
+                <div className="header-logo-icon">
+                  <Zap className="header-logo-zap" />
+                </div>
+                <span className="header-logo-text">
+                  Stargate<span className="header-logo-dot">.</span>
+                </span>
+              </Link>
               <button
                 className="mobile-close-btn"
                 onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close menu"
               >
-                <X size={28} />
+                <X size={24} />
               </button>
             </div>
 
             <div className="mobile-menu-content">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="mobile-nav-link"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+              {/* Call CTA */}
+              <motion.a
+                href={`tel:${siteConfig.phoneRaw}`}
+                className="mobile-call-card"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+              >
+                <div className="mobile-call-icon">
+                  <Phone size={20} />
+                </div>
+                <div className="mobile-call-text">
+                  <span className="mobile-call-label">Call Now</span>
+                  <span className="mobile-call-number">{siteConfig.phone}</span>
+                </div>
+                <ChevronRight size={20} className="mobile-call-arrow" />
+              </motion.a>
 
+              {/* Navigation Links */}
+              <div className="mobile-nav-list">
+                {navLinks.map((link, index) => {
+                  const Icon = link.icon;
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + index * 0.04 }}
+                    >
+                      <Link
+                        href={link.href}
+                        className="mobile-nav-link"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Icon size={20} className="mobile-nav-icon" />
+                        <span>{link.label}</span>
+                        <ChevronRight size={18} className="mobile-nav-arrow" />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* CTA Button */}
               <motion.div
                 className="mobile-cta-wrap"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
+                transition={{ delay: 0.4 }}
               >
                 <Link
                   href="/contact"
                   className="mobile-cta-btn"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Zap className="mobile-cta-icon" />
-                  Free Estimate
+                  <Zap size={18} />
+                  Get Free Estimate
                 </Link>
+              </motion.div>
+
+              {/* Trust Badges */}
+              <motion.div
+                className="mobile-trust"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <div className="mobile-trust-item">
+                  <Star size={14} />
+                  <span>5-Star Rated</span>
+                </div>
+                <div className="mobile-trust-item">
+                  <Shield size={14} />
+                  <span>Fully Insured</span>
+                </div>
               </motion.div>
             </div>
           </motion.div>
@@ -226,68 +294,195 @@ export function Header() {
           cursor: pointer;
         }
         
+        /* Mobile Menu */
         .mobile-menu {
           position: fixed;
           inset: 0;
-          background: linear-gradient(180deg, #030308 0%, #07070f 100%);
-          z-index: 40;
-        }
-        
-        .mobile-menu-close {
+          background: linear-gradient(180deg, #07070f 0%, #030308 100%);
+          z-index: 100;
           display: flex;
-          justify-content: flex-end;
-          padding: 20px;
+          flex-direction: column;
+        }
+
+        .mobile-menu-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .mobile-menu-logo {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
         }
         
         .mobile-close-btn {
-          padding: 8px;
+          width: 44px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           color: #6b6b80;
-          background: none;
-          border: none;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
           cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .mobile-close-btn:active {
+          background: rgba(255, 255, 255, 0.08);
         }
         
         .mobile-menu-content {
-          padding: 0 24px;
-          padding-top: 20px;
+          flex: 1;
+          padding: 20px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* Call Card */
+        .mobile-call-card {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 16px;
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.08) 100%);
+          border: 1px solid rgba(124, 58, 237, 0.25);
+          border-radius: 14px;
+          text-decoration: none;
+          margin-bottom: 24px;
+        }
+
+        .mobile-call-card:active {
+          transform: scale(0.98);
+        }
+
+        .mobile-call-icon {
+          width: 48px;
+          height: 48px;
+          background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          flex-shrink: 0;
+        }
+
+        .mobile-call-text {
+          flex: 1;
+        }
+
+        .mobile-call-label {
+          display: block;
+          font-size: 12px;
+          font-weight: 600;
+          color: #a78bfa;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 2px;
+        }
+
+        .mobile-call-number {
+          display: block;
+          font-size: 18px;
+          font-weight: 700;
+          color: #fff;
+        }
+
+        .mobile-call-arrow {
+          color: #6b6b80;
+        }
+
+        /* Nav List */
+        .mobile-nav-list {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
         }
         
         .mobile-nav-link {
-          display: block;
-          padding: 16px 0;
-          font-size: 20px;
-          font-weight: 500;
-          color: #8b8b9e;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 16px 14px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #fff;
           text-decoration: none;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-          transition: color 0.2s;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.04);
+          border-radius: 12px;
+          transition: all 0.2s;
         }
-        
-        .mobile-nav-link:hover {
+
+        .mobile-nav-link:active {
+          background: rgba(124, 58, 237, 0.1);
+          border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .mobile-nav-icon {
           color: #a78bfa;
         }
+
+        .mobile-nav-link span {
+          flex: 1;
+        }
+
+        .mobile-nav-arrow {
+          color: #3a3a4a;
+        }
         
+        /* CTA */
         .mobile-cta-wrap {
-          margin-top: 32px;
+          margin-top: 24px;
         }
         
         .mobile-cta-btn {
-          display: inline-flex;
+          display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 16px 28px;
+          justify-content: center;
+          gap: 10px;
+          width: 100%;
+          padding: 18px 28px;
           background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
           color: #fff;
-          font-weight: 600;
-          font-size: 15px;
-          border-radius: 12px;
+          font-weight: 700;
+          font-size: 16px;
+          border-radius: 14px;
           text-decoration: none;
-          box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+          box-shadow: 0 4px 24px rgba(124, 58, 237, 0.4);
         }
-        
-        .mobile-cta-icon {
-          width: 18px;
-          height: 18px;
+
+        .mobile-cta-btn:active {
+          transform: scale(0.98);
+        }
+
+        /* Trust */
+        .mobile-trust {
+          display: flex;
+          justify-content: center;
+          gap: 24px;
+          margin-top: auto;
+          padding-top: 24px;
+        }
+
+        .mobile-trust-item {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 13px;
+          font-weight: 500;
+          color: #6b6b80;
+        }
+
+        .mobile-trust-item svg {
+          color: #22c55e;
         }
         
         /* Tablet and up */

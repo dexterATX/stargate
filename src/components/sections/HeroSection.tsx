@@ -128,7 +128,7 @@ export function HeroSection() {
           position: relative;
           width: 100%;
           height: 100vh;
-          min-height: 700px;
+          min-height: 580px;
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -196,7 +196,7 @@ export function HeroSection() {
           background: rgba(124, 58, 237, 0.15);
           border: 1px solid rgba(124, 58, 237, 0.3);
           border-radius: 50px;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
         
         .hero-badge-icon {
@@ -215,7 +215,7 @@ export function HeroSection() {
         }
         
         .hero-headline-wrap {
-          margin-bottom: 16px;
+          margin-bottom: 12px;
         }
         
         .hero-headline {
@@ -235,7 +235,7 @@ export function HeroSection() {
         }
         
         .hero-subheadline-wrap {
-          margin-bottom: 32px;
+          margin-bottom: 24px;
         }
         
         .hero-subtext {
@@ -324,8 +324,8 @@ export function HeroSection() {
           display: flex;
           justify-content: center;
           gap: 24px;
-          margin-top: 40px;
-          padding-top: 24px;
+          margin-top: 28px;
+          padding-top: 20px;
           border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
         

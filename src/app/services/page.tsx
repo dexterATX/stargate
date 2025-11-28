@@ -17,10 +17,12 @@ import {
   Droplets,
   Sparkles,
   Leaf,
+  MapPin,
 } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { siteConfig } from "@/config/site";
+import { SectionDivider } from "@/components/SectionDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,7 +46,7 @@ const services = [
   {
     id: "driveway-cleaning",
     icon: Car,
-    title: "Driveway & Concrete Cleaning",
+    title: "Driveway Cleaning",
     subtitle: "High-Pressure Surface Cleaning",
     description:
       "Eliminate oil stains, tire marks, rust, and years of built-up grime from your driveway, sidewalks, and patios. Our surface cleaners ensure even, streak-free results.",
@@ -92,7 +94,7 @@ const services = [
   {
     id: "fence-cleaning",
     icon: TreeDeciduous,
-    title: "Fence & Deck Cleaning",
+    title: "Fence & Deck",
     subtitle: "Wood, Vinyl & Composite",
     description:
       "Revitalize your outdoor living spaces. Our tailored approach handles wood, vinyl, and composite materials, removing weathering, green algae, and gray oxidation.",
@@ -108,7 +110,7 @@ const services = [
   {
     id: "commercial",
     icon: Building2,
-    title: "Commercial Services",
+    title: "Commercial",
     subtitle: "Business & Property Management",
     description:
       "First impressions matter. We serve storefronts, restaurants, HOAs, property managers, and commercial buildings with flexible scheduling and competitive pricing.",
@@ -235,6 +237,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Services Grid */}
       <section ref={servicesRef} className="services-grid">
         <div className="section-header">
@@ -243,6 +247,47 @@ export default function ServicesPage() {
           <p>Professional solutions for every surface around your property</p>
         </div>
 
+        {/* Mobile Carousel - Rich Cards */}
+        <div className="services-carousel-mobile">
+          <div className="mobile-carousel-track">
+            {services.map((service) => (
+              <div key={service.id} className="mobile-service-card">
+                <div 
+                  className="mobile-card-image"
+                  style={{ backgroundImage: `url(${service.image})` }}
+                >
+                  <div className="mobile-card-overlay" />
+                  <span className="mobile-card-price">{service.price}</span>
+                </div>
+                <div className="mobile-card-content">
+                  <div className="mobile-card-icon">
+                    <service.icon size={20} />
+                  </div>
+                  <h3 className="mobile-card-title">{service.title}</h3>
+                  <span className="mobile-card-subtitle">{service.subtitle}</span>
+                  <ul className="mobile-card-benefits">
+                    {service.benefits.slice(0, 2).map((benefit, i) => (
+                      <li key={i}>
+                        <Check size={12} />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/contact" className="mobile-card-cta">
+                    Get Quote
+                    <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mobile-carousel-hint">
+            <span>Swipe to see more services</span>
+            <ArrowRight size={14} />
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
         <div className="grid">
           {services.map((service) => (
             <article key={service.id} id={service.id} className="service-card">
@@ -280,6 +325,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Process Section */}
       <section className="process-section">
         <div className="section-header">
@@ -301,6 +348,8 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
+
+      <SectionDivider />
 
       {/* Why Choose Us */}
       <section className="why-section">
@@ -354,18 +403,26 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Service Areas */}
+      <SectionDivider />
+
+      {/* Service Areas - Clean & Compact */}
       <section className="areas-section">
-        <div className="section-header">
-          <span className="section-label">Service Areas</span>
-          <h2>Proudly Serving Pinellas County</h2>
-        </div>
-        <div className="areas-grid">
-          {siteConfig.serviceAreas.map((area) => (
-            <span key={area} className="area-tag">
-              {area}
-            </span>
-          ))}
+        <div className="areas-inner">
+          <div className="areas-left">
+            <MapPin size={20} className="areas-icon" />
+            <div>
+              <h3>Serving Pinellas County</h3>
+              <p>Seminole, Largo, Clearwater, St. Pete & surrounding areas</p>
+            </div>
+          </div>
+          <div className="areas-right">
+            <span className="areas-perk"><Check size={14} /> Free estimates</span>
+            <span className="areas-perk"><Check size={14} /> No travel fees</span>
+            <Link href="/contact" className="areas-btn">
+              Check Your Area
+              <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -377,7 +434,7 @@ export default function ServicesPage() {
 
         /* Hero */
         .services-hero {
-          padding: 140px 24px 80px;
+          padding: 120px 24px 60px;
           text-align: center;
           background: linear-gradient(
             180deg,
@@ -406,7 +463,7 @@ export default function ServicesPage() {
         }
 
         .services-hero h1 {
-          font-size: 2.75rem;
+          font-size: 2rem;
           font-weight: 700;
           color: #fff;
           line-height: 1.15;
@@ -422,10 +479,10 @@ export default function ServicesPage() {
         }
 
         .services-hero p {
-          font-size: 17px;
+          font-size: 15px;
           color: #9ca3af;
           line-height: 1.7;
-          margin-bottom: 32px;
+          margin-bottom: 28px;
           max-width: 600px;
           margin-left: auto;
           margin-right: auto;
@@ -435,7 +492,7 @@ export default function ServicesPage() {
           display: flex;
           flex-direction: column;
           gap: 12px;
-          margin-bottom: 32px;
+          margin-bottom: 28px;
         }
 
         .btn-primary {
@@ -502,7 +559,7 @@ export default function ServicesPage() {
         /* Section Headers */
         .section-header {
           text-align: center;
-          margin-bottom: 48px;
+          margin-bottom: 32px;
         }
 
         .section-label {
@@ -516,7 +573,7 @@ export default function ServicesPage() {
         }
 
         .section-header h2 {
-          font-size: 2.25rem;
+          font-size: 1.75rem;
           font-weight: 700;
           color: #fff;
           margin-bottom: 12px;
@@ -524,7 +581,7 @@ export default function ServicesPage() {
         }
 
         .section-header p {
-          font-size: 16px;
+          font-size: 14px;
           color: #6b7280;
           max-width: 500px;
           margin: 0 auto;
@@ -532,15 +589,171 @@ export default function ServicesPage() {
 
         /* Services Grid */
         .services-grid {
-          padding: 60px 24px 80px;
+          padding: 40px 24px 60px;
           max-width: 1200px;
           margin: 0 auto;
         }
 
+        /* Mobile Carousel - Rich Cards */
+        .services-carousel-mobile {
+          width: 100%;
+          margin-bottom: 8px;
+        }
+
+        .mobile-carousel-track {
+          display: flex;
+          gap: 16px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          padding: 8px 20px 16px;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        .mobile-carousel-track::-webkit-scrollbar {
+          display: none;
+        }
+
+        .mobile-service-card {
+          flex: 0 0 280px;
+          scroll-snap-align: center;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 20px;
+          overflow: hidden;
+          transition: all 0.3s;
+        }
+
+        .mobile-service-card:active {
+          transform: scale(0.98);
+        }
+
+        .mobile-card-image {
+          position: relative;
+          height: 140px;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .mobile-card-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            180deg,
+            rgba(3, 3, 8, 0.2) 0%,
+            rgba(3, 3, 8, 0.85) 100%
+          );
+        }
+
+        .mobile-card-price {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          padding: 6px 12px;
+          background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+          border-radius: 8px;
+          font-size: 12px;
+          font-weight: 700;
+          color: #fff;
+          box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+        }
+
+        .mobile-card-content {
+          padding: 16px 18px 18px;
+        }
+
+        .mobile-card-icon {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+          border-radius: 10px;
+          color: #fff;
+          margin-bottom: 12px;
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .mobile-card-title {
+          font-size: 17px;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 4px;
+          letter-spacing: -0.01em;
+        }
+
+        .mobile-card-subtitle {
+          display: block;
+          font-size: 12px;
+          color: #a78bfa;
+          font-weight: 500;
+          margin-bottom: 12px;
+        }
+
+        .mobile-card-benefits {
+          list-style: none;
+          padding: 0;
+          margin: 0 0 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .mobile-card-benefits li {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          color: #9ca3af;
+        }
+
+        .mobile-card-benefits svg {
+          color: #22c55e;
+          flex-shrink: 0;
+        }
+
+        .mobile-card-cta {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          width: 100%;
+          padding: 12px;
+          background: rgba(124, 58, 237, 0.15);
+          border: 1px solid rgba(124, 58, 237, 0.3);
+          border-radius: 10px;
+          font-size: 13px;
+          font-weight: 600;
+          color: #fff;
+          text-decoration: none;
+          transition: all 0.2s;
+        }
+
+        .mobile-card-cta:active {
+          background: rgba(124, 58, 237, 0.25);
+        }
+
+        .mobile-carousel-hint {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          padding: 8px 0;
+          font-size: 12px;
+          color: #6b7280;
+          animation: hintPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes hintPulse {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
+        }
+
+        /* Desktop Grid - Hidden on mobile */
         .grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 24px;
+          display: none;
         }
 
         .service-card {
@@ -660,74 +873,83 @@ export default function ServicesPage() {
 
         /* Process Section */
         .process-section {
-          padding: 80px 24px;
+          padding: 48px 20px;
           background: rgba(124, 58, 237, 0.03);
           border-top: 1px solid rgba(124, 58, 237, 0.1);
           border-bottom: 1px solid rgba(124, 58, 237, 0.1);
         }
 
+        .process-section .section-header {
+          margin-bottom: 28px;
+        }
+
         .process-grid {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 24px;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
           max-width: 1000px;
           margin: 0 auto;
         }
 
         .process-step {
           text-align: center;
-          padding: 32px 24px;
+          padding: 20px 12px 16px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 16px;
+          border-radius: 14px;
           position: relative;
         }
 
         .step-number {
           position: absolute;
-          top: -12px;
+          top: -10px;
           left: 50%;
           transform: translateX(-50%);
-          width: 24px;
-          height: 24px;
+          width: 20px;
+          height: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
           background: #7c3aed;
           border-radius: 50%;
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 700;
           color: #fff;
         }
 
         .step-icon {
-          width: 56px;
-          height: 56px;
+          width: 40px;
+          height: 40px;
           display: flex;
           align-items: center;
           justify-content: center;
           background: rgba(124, 58, 237, 0.1);
-          border-radius: 14px;
+          border-radius: 10px;
           color: #a78bfa;
-          margin: 0 auto 16px;
+          margin: 0 auto 10px;
+        }
+
+        .step-icon svg {
+          width: 20px;
+          height: 20px;
         }
 
         .process-step h3 {
-          font-size: 1.1rem;
+          font-size: 13px;
           font-weight: 600;
           color: #fff;
-          margin-bottom: 8px;
+          margin-bottom: 4px;
         }
 
         .process-step p {
-          font-size: 14px;
+          font-size: 11px;
           color: #6b7280;
-          line-height: 1.5;
+          line-height: 1.4;
         }
 
         /* Why Section */
         .why-section {
-          padding: 80px 24px;
+          padding: 60px 24px;
           max-width: 1200px;
           margin: 0 auto;
         }
@@ -735,11 +957,11 @@ export default function ServicesPage() {
         .why-content {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 40px;
+          gap: 32px;
         }
 
         .why-text h2 {
-          font-size: 2rem;
+          font-size: 1.75rem;
           font-weight: 700;
           color: #fff;
           margin-bottom: 24px;
@@ -785,19 +1007,19 @@ export default function ServicesPage() {
           );
           border: 1px solid rgba(124, 58, 237, 0.25);
           border-radius: 20px;
-          padding: 40px 32px;
+          padding: 32px 24px;
           text-align: center;
         }
 
         .why-cta-box h3 {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
           font-weight: 700;
           color: #fff;
           margin-bottom: 12px;
         }
 
         .why-cta-box > p {
-          font-size: 15px;
+          font-size: 14px;
           color: #9ca3af;
           margin-bottom: 24px;
           line-height: 1.6;
@@ -810,40 +1032,95 @@ export default function ServicesPage() {
           color: #6b7280;
         }
 
-        /* Service Areas */
+        /* Service Areas - Clean & Compact */
         .areas-section {
-          padding: 60px 24px 100px;
-          max-width: 1000px;
-          margin: 0 auto;
+          padding: 40px 24px 80px;
         }
 
-        .areas-grid {
+        .areas-inner {
+          max-width: 900px;
+          margin: 0 auto;
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 100%);
+          border: 1px solid rgba(124, 58, 237, 0.15);
+          border-radius: 16px;
+          padding: 20px 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .areas-left {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .areas-icon {
+          color: #7c3aed;
+          flex-shrink: 0;
+        }
+
+        .areas-left h3 {
+          font-size: 16px;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 2px;
+        }
+
+        .areas-left p {
+          font-size: 13px;
+          color: #9ca3af;
+          line-height: 1.4;
+        }
+
+        .areas-right {
           display: flex;
           flex-wrap: wrap;
-          justify-content: center;
-          gap: 10px;
+          align-items: center;
+          gap: 12px;
         }
 
-        .area-tag {
+        .areas-perk {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 12px;
+          color: #22c55e;
+          font-weight: 500;
+        }
+
+        .areas-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
           padding: 10px 18px;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 100px;
-          font-size: 14px;
-          color: #9ca3af;
+          background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          color: #fff;
+          text-decoration: none;
           transition: all 0.2s;
+          margin-left: auto;
         }
 
-        .area-tag:hover {
-          background: rgba(124, 58, 237, 0.1);
-          border-color: rgba(124, 58, 237, 0.3);
-          color: #a78bfa;
+        .areas-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
         }
 
-        /* Responsive */
+        /* Responsive - Tablet and up */
         @media (min-width: 640px) {
+          .services-hero {
+            padding: 140px 24px 80px;
+          }
+
           .services-hero h1 {
-            font-size: 3.25rem;
+            font-size: 2.75rem;
+          }
+
+          .services-hero p {
+            font-size: 17px;
           }
 
           .hero-ctas {
@@ -851,12 +1128,99 @@ export default function ServicesPage() {
             justify-content: center;
           }
 
+          .section-header h2 {
+            font-size: 2.25rem;
+          }
+
+          .section-header p {
+            font-size: 16px;
+          }
+
+          .services-carousel-mobile {
+            display: none;
+          }
+
           .grid {
+            display: grid;
             grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+          }
+
+          .services-grid {
+            padding: 60px 24px 80px;
+          }
+
+          .process-section {
+            padding: 60px 24px;
+          }
+
+          .process-section .section-header {
+            margin-bottom: 48px;
           }
 
           .process-grid {
-            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+
+          .process-step {
+            padding: 28px 20px 24px;
+            border-radius: 16px;
+          }
+
+          .step-number {
+            width: 24px;
+            height: 24px;
+            top: -12px;
+            font-size: 12px;
+          }
+
+          .step-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            margin-bottom: 14px;
+          }
+
+          .step-icon svg {
+            width: 24px;
+            height: 24px;
+          }
+
+          .process-step h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+          }
+
+          .process-step p {
+            font-size: 13px;
+            line-height: 1.5;
+          }
+
+          .areas-inner {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 32px;
+          }
+
+          .areas-left h3 {
+            font-size: 18px;
+          }
+
+          .areas-left p {
+            font-size: 14px;
+          }
+
+          .areas-right {
+            gap: 16px;
+          }
+
+          .areas-perk {
+            font-size: 13px;
+          }
+
+          .areas-btn {
+            margin-left: 0;
           }
         }
 
@@ -878,13 +1242,25 @@ export default function ServicesPage() {
             align-items: start;
           }
 
+          .why-text h2 {
+            font-size: 2rem;
+          }
+
           .why-cta-box {
             position: sticky;
             top: 100px;
+            padding: 40px 32px;
+          }
+
+          .why-cta-box h3 {
+            font-size: 1.5rem;
+          }
+
+          .why-cta-box > p {
+            font-size: 15px;
           }
         }
       `}</style>
     </main>
   );
 }
-

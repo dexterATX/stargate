@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { 
   Phone, 
   Mail, 
@@ -9,11 +8,7 @@ import {
   Clock, 
   Send, 
   CheckCircle,
-  Zap,
   ArrowRight,
-  User,
-  MessageSquare,
-  Wrench
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
@@ -28,7 +23,6 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,7 +70,7 @@ export default function ContactPage() {
         <div className="contact-hero-content">
           <h1 className="contact-title">Get Your Free Quote</h1>
           <p className="contact-subtitle">
-            Fill out the form or call us directly. Same-day estimates available.
+            Quick response · Same-day estimates · No obligation
           </p>
         </div>
       </div>
@@ -84,128 +78,130 @@ export default function ContactPage() {
       {/* Main Content */}
       <div className="contact-main">
         <div className="contact-container">
+          {/* Mobile Call CTA - Above form */}
+          <a href={`tel:${siteConfig.phoneRaw}`} className="mobile-call-cta">
+            <Phone size={20} />
+            <span>Call Now: {siteConfig.phone}</span>
+          </a>
+
           <div className="contact-grid">
             {/* Contact Form */}
             <div className="contact-form-card">
               {isSubmitted ? (
                 <div className="contact-success">
-                  <CheckCircle className="success-icon" />
+                  <div className="success-icon-wrap">
+                    <CheckCircle size={32} />
+                  </div>
                   <h3>Request Sent!</h3>
                   <p>We'll contact you within 24 hours.</p>
                   <button onClick={() => setIsSubmitted(false)} className="success-btn">
-                    Send Another
+                    Send Another Request
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="contact-form">
                   <div className="form-header">
-                    <Zap className="form-header-icon" />
-                    <div>
-                      <h2>Request a Quote</h2>
-                      <p>We'll get back to you within 24 hours</p>
-                    </div>
+                    <h2>Request a Quote</h2>
+                    <p>Fill out the form below and we'll get back to you fast.</p>
                   </div>
 
-                  <div className="form-grid">
-                    <div className="form-field">
-                      <label htmlFor="name">
-                        <User size={14} />
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formState.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="John Smith"
-                      />
-                    </div>
+                  {/* Name */}
+                  <div className="form-field">
+                    <label htmlFor="name">Your Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formState.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="John Smith"
+                      autoComplete="name"
+                      autoCapitalize="words"
+                    />
+                  </div>
 
-                    <div className="form-field">
-                      <label htmlFor="phone">
-                        <Phone size={14} />
-                        Phone *
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formState.phone}
-                        onChange={handleChange}
-                        required
-                        placeholder="(555) 123-4567"
-                      />
-                    </div>
+                  {/* Phone */}
+                  <div className="form-field">
+                    <label htmlFor="phone">Phone Number</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formState.phone}
+                      onChange={handleChange}
+                      required
+                      placeholder="(555) 123-4567"
+                      autoComplete="tel"
+                      inputMode="tel"
+                    />
+                  </div>
 
-                    <div className="form-field">
-                      <label htmlFor="email">
-                        <Mail size={14} />
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formState.email}
-                        onChange={handleChange}
-                        required
-                        placeholder="john@example.com"
-                      />
-                    </div>
+                  {/* Email */}
+                  <div className="form-field">
+                    <label htmlFor="email">Email Address</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formState.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="john@example.com"
+                      autoComplete="email"
+                      inputMode="email"
+                    />
+                  </div>
 
-                    <div className="form-field">
-                      <label htmlFor="address">
-                        <MapPin size={14} />
-                        Property Address
-                      </label>
-                      <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        value={formState.address}
-                        onChange={handleChange}
-                        placeholder="123 Main St, Seminole, FL"
-                      />
-                    </div>
+                  {/* Service */}
+                  <div className="form-field">
+                    <label htmlFor="service">Service Needed</label>
+                    <select
+                      id="service"
+                      name="service"
+                      value={formState.service}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select a service...</option>
+                      {siteConfig.services.map((service) => (
+                        <option key={service.id} value={service.id}>
+                          {service.title}
+                        </option>
+                      ))}
+                      <option value="multiple">Multiple Services</option>
+                      <option value="other">Other / Not Sure</option>
+                    </select>
+                  </div>
 
-                    <div className="form-field full-width">
-                      <label htmlFor="service">
-                        <Wrench size={14} />
-                        Service Needed
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        value={formState.service}
-                        onChange={handleChange}
-                      >
-                        <option value="">Select a service...</option>
-                        {siteConfig.services.map((service) => (
-                          <option key={service.id} value={service.id}>
-                            {service.title}
-                          </option>
-                        ))}
-                        <option value="multiple">Multiple Services</option>
-                        <option value="other">Other / Not Sure</option>
-                      </select>
-                    </div>
+                  {/* Address - Optional */}
+                  <div className="form-field">
+                    <label htmlFor="address">
+                      Property Address <span className="optional">(optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="address"
+                      name="address"
+                      value={formState.address}
+                      onChange={handleChange}
+                      placeholder="123 Main St, Seminole, FL"
+                      autoComplete="street-address"
+                    />
+                  </div>
 
-                    <div className="form-field full-width">
-                      <label htmlFor="message">
-                        <MessageSquare size={14} />
-                        Project Details
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formState.message}
-                        onChange={handleChange}
-                        rows={3}
-                        placeholder="Tell us about your property - size of driveway, type of surface, any specific concerns..."
-                      />
-                    </div>
+                  {/* Message - Optional */}
+                  <div className="form-field">
+                    <label htmlFor="message">
+                      Additional Details <span className="optional">(optional)</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formState.message}
+                      onChange={handleChange}
+                      rows={3}
+                      placeholder="Tell us about your project..."
+                    />
                   </div>
 
                   {error && (
@@ -222,11 +218,16 @@ export default function ContactPage() {
                       </>
                     ) : (
                       <>
-                        <Send size={16} />
+                        <Send size={18} />
                         Get Free Quote
                       </>
                     )}
                   </button>
+
+                  <p className="form-note">
+                    <CheckCircle size={14} />
+                    We typically respond within 2 hours during business hours
+                  </p>
                 </form>
               )}
             </div>
@@ -269,7 +270,7 @@ export default function ContactPage() {
                   <Clock className="info-icon" />
                   <div>
                     <span className="info-label">Hours</span>
-                    <span className="info-value">Mon-Fri: 7am-6pm</span>
+                    <span className="info-value">Mon-Sat: 7am-6pm</span>
                   </div>
                 </div>
               </div>
@@ -307,7 +308,7 @@ export default function ContactPage() {
         }
 
         .contact-hero {
-          padding: 120px 20px 32px;
+          padding: 100px 20px 24px;
           text-align: center;
           background: linear-gradient(180deg, rgba(124, 58, 237, 0.08) 0%, transparent 100%);
         }
@@ -318,7 +319,7 @@ export default function ContactPage() {
         }
 
         .contact-title {
-          font-size: 2rem;
+          font-size: 1.75rem;
           font-weight: 700;
           color: #fff;
           margin-bottom: 8px;
@@ -326,7 +327,7 @@ export default function ContactPage() {
         }
 
         .contact-subtitle {
-          font-size: 15px;
+          font-size: 14px;
           color: #6b6b80;
         }
 
@@ -340,6 +341,27 @@ export default function ContactPage() {
           padding: 0 16px;
         }
 
+        /* Mobile Call CTA */
+        .mobile-call-cta {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 16px;
+          margin-bottom: 20px;
+          background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 700;
+          color: #fff;
+          text-decoration: none;
+          box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .mobile-call-cta:active {
+          transform: scale(0.98);
+        }
+
         .contact-grid {
           display: grid;
           grid-template-columns: 1fr;
@@ -350,74 +372,62 @@ export default function ContactPage() {
         .contact-form-card {
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 16px;
-          padding: 24px;
+          border-radius: 20px;
+          padding: 24px 20px;
         }
 
         .form-header {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 20px;
-          padding-bottom: 16px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .form-header-icon {
-          width: 36px;
-          height: 36px;
-          padding: 8px;
-          background: rgba(124, 58, 237, 0.15);
-          border-radius: 10px;
-          color: #a78bfa;
+          margin-bottom: 24px;
+          text-align: center;
         }
 
         .form-header h2 {
-          font-size: 1.1rem;
-          font-weight: 600;
+          font-size: 1.25rem;
+          font-weight: 700;
           color: #fff;
-          margin-bottom: 2px;
+          margin-bottom: 6px;
         }
 
         .form-header p {
-          font-size: 13px;
+          font-size: 14px;
           color: #6b6b80;
         }
 
-        .form-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 14px;
-          margin-bottom: 20px;
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
         }
 
         .form-field {
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 8px;
         }
 
         .form-field label {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 600;
-          color: #8b8b9e;
-          text-transform: uppercase;
-          letter-spacing: 0.03em;
+          color: #fff;
+        }
+
+        .form-field label .optional {
+          font-weight: 400;
+          color: #6b6b80;
+          font-size: 12px;
         }
 
         .form-field input,
         .form-field select,
         .form-field textarea {
-          padding: 12px 14px;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          font-size: 14px;
+          padding: 16px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-size: 16px;
           color: #fff;
           transition: all 0.2s;
+          -webkit-appearance: none;
         }
 
         .form-field input::placeholder,
@@ -429,51 +439,66 @@ export default function ContactPage() {
         .form-field select:focus,
         .form-field textarea:focus {
           outline: none;
-          border-color: rgba(124, 58, 237, 0.5);
-          background: rgba(124, 58, 237, 0.05);
+          border-color: #7c3aed;
+          background: rgba(124, 58, 237, 0.08);
+          box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
         }
 
         .form-field select {
           cursor: pointer;
-          appearance: none;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b6b80' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a78bfa' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
           background-repeat: no-repeat;
-          background-position: right 10px center;
-          background-size: 14px;
-          padding-right: 36px;
+          background-position: right 14px center;
+          background-size: 18px;
+          padding-right: 44px;
         }
 
         .form-field select option {
           background: #1a1a2e;
           color: #fff;
+          padding: 12px;
         }
 
         .form-field textarea {
           resize: vertical;
-          min-height: 80px;
+          min-height: 100px;
+        }
+
+        .form-error {
+          padding: 14px 16px;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          border-radius: 10px;
+          font-size: 14px;
+          color: #ef4444;
         }
 
         .form-submit {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
+          gap: 10px;
           width: 100%;
-          padding: 14px 24px;
+          padding: 18px 24px;
           background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
           border: none;
-          border-radius: 10px;
-          font-size: 15px;
-          font-weight: 600;
+          border-radius: 14px;
+          font-size: 17px;
+          font-weight: 700;
           color: #fff;
           cursor: pointer;
           transition: all 0.2s;
-          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+          box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
+          margin-top: 8px;
         }
 
         .form-submit:hover:not(:disabled) {
-          transform: translateY(-1px);
-          box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 28px rgba(124, 58, 237, 0.45);
+        }
+
+        .form-submit:active:not(:disabled) {
+          transform: scale(0.98);
         }
 
         .form-submit:disabled {
@@ -482,8 +507,8 @@ export default function ContactPage() {
         }
 
         .spinner {
-          width: 16px;
-          height: 16px;
+          width: 18px;
+          height: 18px;
           border: 2px solid rgba(255, 255, 255, 0.3);
           border-top-color: #fff;
           border-radius: 50%;
@@ -494,210 +519,71 @@ export default function ContactPage() {
           to { transform: rotate(360deg); }
         }
 
-        .form-error {
-          padding: 12px 16px;
-          background: rgba(239, 68, 68, 0.1);
-          border: 1px solid rgba(239, 68, 68, 0.3);
-          border-radius: 8px;
-          font-size: 14px;
-          color: #ef4444;
+        .form-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          font-size: 13px;
+          color: #6b6b80;
+          text-align: center;
+        }
+
+        .form-note svg {
+          color: #22c55e;
+          flex-shrink: 0;
         }
 
         /* Success State */
         .contact-success {
           text-align: center;
-          padding: 32px 16px;
+          padding: 40px 20px;
         }
 
-        .contact-success .success-icon {
-          width: 48px;
-          height: 48px;
-          margin-bottom: 12px;
+        .success-icon-wrap {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto 16px;
+          background: rgba(34, 197, 94, 0.15);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           color: #22c55e;
         }
 
         .contact-success h3 {
-          font-size: 1.25rem;
-          font-weight: 600;
+          font-size: 1.5rem;
+          font-weight: 700;
           color: #fff;
-          margin-bottom: 6px;
+          margin-bottom: 8px;
         }
 
         .contact-success p {
-          font-size: 14px;
+          font-size: 15px;
           color: #6b6b80;
-          margin-bottom: 16px;
+          margin-bottom: 24px;
         }
 
         .success-btn {
-          padding: 10px 20px;
+          padding: 14px 28px;
           background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 8px;
-          font-size: 13px;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 10px;
+          font-size: 14px;
           font-weight: 600;
           color: #fff;
           cursor: pointer;
-        }
-
-        /* Contact Info */
-        .contact-info {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .call-now-card {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          padding: 16px;
-          background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.08) 100%);
-          border: 1px solid rgba(124, 58, 237, 0.3);
-          border-radius: 12px;
-          text-decoration: none;
           transition: all 0.2s;
         }
 
-        .call-now-card:hover {
-          background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(124, 58, 237, 0.12) 100%);
-          transform: translateY(-1px);
+        .success-btn:hover {
+          background: rgba(255, 255, 255, 0.12);
         }
 
-        .call-now-icon {
-          width: 44px;
-          height: 44px;
-          background: rgba(124, 58, 237, 0.2);
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .call-now-icon svg {
-          width: 20px;
-          height: 20px;
-          color: #a78bfa;
-        }
-
-        .call-now-content {
-          flex: 1;
-        }
-
-        .call-now-label {
-          display: block;
-          font-size: 11px;
-          font-weight: 600;
-          color: #a78bfa;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 2px;
-        }
-
-        .call-now-number {
-          font-size: 18px;
-          font-weight: 700;
-          color: #fff;
-        }
-
-        .call-now-arrow {
-          width: 18px;
-          height: 18px;
-          color: #6b6b80;
-        }
-
-        /* Info Grid */
-        .info-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 10px;
-        }
-
-        .info-card {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 14px;
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 10px;
-        }
-
-        .info-icon {
-          width: 18px;
-          height: 18px;
-          color: #6b6b80;
-          flex-shrink: 0;
-        }
-
-        .info-label {
-          display: block;
-          font-size: 11px;
-          color: #4a4a5a;
-          margin-bottom: 1px;
-        }
-
-        .info-value {
-          font-size: 13px;
-          font-weight: 500;
-          color: #b8b8c8;
-          text-decoration: none;
-        }
-
-        a.info-value:hover {
-          color: #a78bfa;
-        }
-
-        /* Areas Card */
-        .areas-card {
-          padding: 16px;
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 10px;
-        }
-
-        .areas-card h4 {
-          font-size: 12px;
-          font-weight: 600;
-          color: #6b6b80;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 10px;
-        }
-
-        .areas-list {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-        }
-
-        .area-tag {
-          padding: 4px 10px;
-          background: rgba(255, 255, 255, 0.04);
-          border-radius: 4px;
-          font-size: 12px;
-          color: #8b8b9e;
-        }
-
-        /* Trust Row */
-        .trust-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-
-        .trust-badge {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          padding: 8px 12px;
-          background: rgba(34, 197, 94, 0.08);
-          border: 1px solid rgba(34, 197, 94, 0.2);
-          border-radius: 6px;
-          font-size: 12px;
-          font-weight: 500;
-          color: #22c55e;
+        /* Contact Info - Hidden on mobile */
+        .contact-info {
+          display: none;
         }
 
         /* Tablet */
@@ -706,16 +592,18 @@ export default function ContactPage() {
             font-size: 2.25rem;
           }
 
-          .form-grid {
-            grid-template-columns: 1fr 1fr;
+          .mobile-call-cta {
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
           }
 
-          .form-field.full-width {
-            grid-column: span 2;
+          .contact-form-card {
+            padding: 32px;
           }
 
-          .info-grid {
-            grid-template-columns: repeat(3, 1fr);
+          .form-header {
+            text-align: left;
           }
         }
 
@@ -729,6 +617,10 @@ export default function ContactPage() {
             font-size: 2.5rem;
           }
 
+          .mobile-call-cta {
+            display: none;
+          }
+
           .contact-grid {
             grid-template-columns: 1.3fr 1fr;
             gap: 32px;
@@ -736,11 +628,163 @@ export default function ContactPage() {
           }
 
           .contact-form-card {
-            padding: 28px;
+            padding: 36px;
+          }
+
+          .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+
+          .call-now-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.08) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 14px;
+            text-decoration: none;
+            transition: all 0.2s;
+          }
+
+          .call-now-card:hover {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(124, 58, 237, 0.12) 100%);
+            transform: translateY(-2px);
+          }
+
+          .call-now-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          }
+
+          .call-now-icon svg {
+            width: 22px;
+            height: 22px;
+            color: #a78bfa;
+          }
+
+          .call-now-content {
+            flex: 1;
+          }
+
+          .call-now-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #a78bfa;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+          }
+
+          .call-now-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+          }
+
+          .call-now-arrow {
+            width: 20px;
+            height: 20px;
+            color: #6b6b80;
           }
 
           .info-grid {
+            display: grid;
             grid-template-columns: 1fr;
+            gap: 10px;
+          }
+
+          .info-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+          }
+
+          .info-icon {
+            width: 18px;
+            height: 18px;
+            color: #6b6b80;
+            flex-shrink: 0;
+          }
+
+          .info-label {
+            display: block;
+            font-size: 11px;
+            color: #4a4a5a;
+            margin-bottom: 1px;
+          }
+
+          .info-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: #b8b8c8;
+            text-decoration: none;
+          }
+
+          a.info-value:hover {
+            color: #a78bfa;
+          }
+
+          .areas-card {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+          }
+
+          .areas-card h4 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b6b80;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+          }
+
+          .areas-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+          }
+
+          .area-tag {
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            font-size: 12px;
+            color: #8b8b9e;
+          }
+
+          .trust-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+
+          .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #22c55e;
           }
         }
       `}</style>
