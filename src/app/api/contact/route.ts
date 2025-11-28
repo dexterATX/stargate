@@ -2,11 +2,17 @@ import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site";
 
-// Initialize Resend with API key from environment variable
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Email address where you want to receive contact form submissions
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "info@stargatepressurewashing.com";
+
+// Lazy initialization to avoid build-time errors
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY environment variable is not set");
+  }
+  return new Resend(apiKey);
+}
 
 export async function POST(request: Request) {
   try {
@@ -25,6 +31,9 @@ export async function POST(request: Request) {
     const serviceTitle = service 
       ? siteConfig.services.find(s => s.id === service)?.title || service
       : "Not specified";
+
+    // Get Resend instance
+    const resend = getResend();
 
     // Send email to business owner
     const { data, error } = await resend.emails.send({
