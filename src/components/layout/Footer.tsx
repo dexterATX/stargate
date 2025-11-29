@@ -33,14 +33,14 @@ export function Footer() {
               <Link href="/pricing">Pricing</Link>
               <Link href="/about">About</Link>
               <Link href="/contact">Contact</Link>
-            </div>
+                </div>
 
             {/* Service Areas */}
             <div className="footer-mobile-areas">
               <span className="footer-areas-label">Serving:</span>
               <span className="footer-areas-text">
                 {siteConfig.serviceAreas.slice(0, 5).map(a => a.name).join(" · ")} & more
-              </span>
+                  </span>
             </div>
           </div>
 
@@ -54,18 +54,18 @@ export function Footer() {
                   <div className="footer-logo-text">
                     <span className="footer-logo-name">Stargate</span>
                     <span className="footer-logo-sub">Pressure Washing</span>
-                  </div>
-                </Link>
+                </div>
+              </Link>
                 <p className="footer-desc">
                   Professional pressure washing for residential &amp; commercial properties in Pinellas County.
-                </p>
+              </p>
                 <a href={`tel:${siteConfig.phoneRaw}`} className="footer-phone">
                   <Phone size={18} />
                   <span>{siteConfig.phone}</span>
                 </a>
-              </div>
+            </div>
 
-              {/* Quick Links */}
+          {/* Quick Links */}
               <div className="footer-col">
                 <h4 className="footer-col-title">Quick Links</h4>
                 <ul className="footer-links">
@@ -75,10 +75,10 @@ export function Footer() {
                   <li><Link href="/pricing">Pricing</Link></li>
                   <li><Link href="/about">About</Link></li>
                   <li><Link href="/contact">Contact</Link></li>
-                </ul>
-              </div>
+              </ul>
+            </div>
 
-              {/* Services */}
+          {/* Services */}
               <div className="footer-col">
                 <h4 className="footer-col-title">Our Services</h4>
                 <ul className="footer-links">
@@ -87,8 +87,8 @@ export function Footer() {
                   <li><Link href="/services">Roof Soft Wash</Link></li>
                   <li><Link href="/services">Pool Deck Cleaning</Link></li>
                   <li><Link href="/services">Commercial</Link></li>
-                </ul>
-              </div>
+              </ul>
+            </div>
 
               {/* Service Areas */}
               <div className="footer-col">
@@ -119,14 +119,14 @@ export function Footer() {
                     <Clock size={14} />
                     <span>Mon-Sat: {siteConfig.hours.weekdays}</span>
                   </div>
-                </div>
+                  </div>
                 <a href="/contact" className="footer-cta">
                   Free Quote
                   <ArrowUpRight size={14} />
                 </a>
-              </div>
             </div>
-          </div>
+        </div>
+      </div>
         </div>
       </div>
 

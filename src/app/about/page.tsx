@@ -8,7 +8,6 @@ import {
   Users,
   Heart,
   Leaf,
-  Clock,
   CheckCircle2,
   ArrowRight,
   Phone,
@@ -28,67 +27,38 @@ const stats = [
   { value: "500+", label: "Happy Customers", icon: Users },
   { value: "4.9", label: "Star Rating", icon: Star },
   { value: "5+", label: "Years Experience", icon: Calendar },
-  { value: "100%", label: "Satisfaction Rate", icon: Target },
+  { value: "100%", label: "Satisfaction", icon: Target },
 ];
 
 const values = [
   {
     icon: Shield,
     title: "Quality First",
-    description:
-      "We never cut corners. Every job gets our full attention with professional-grade equipment and proven techniques.",
+    description: "Professional-grade equipment and proven techniques on every job.",
   },
   {
     icon: Heart,
     title: "Customer Care",
-    description:
-      "Your property is treated like our own. We communicate clearly, show up on time, and leave your space spotless.",
+    description: "We show up on time and treat your property with respect.",
   },
   {
     icon: Leaf,
     title: "Eco-Friendly",
-    description:
-      "Our cleaning solutions are biodegradable and safe for your family, pets, and landscaping.",
+    description: "Safe for your family, pets, and landscaping.",
   },
   {
     icon: Award,
-    title: "Guaranteed Results",
-    description:
-      "Not satisfied? We'll re-clean the area at no charge. Your happiness is our reputation.",
+    title: "Guaranteed",
+    description: "Not satisfied? We'll re-clean at no charge.",
   },
 ];
 
 const timeline = [
-  {
-    year: "2020",
-    title: "Founded in Seminole",
-    description:
-      "Started with a truck, a pressure washer, and a commitment to do things right.",
-  },
-  {
-    year: "2021",
-    title: "Expanded Services",
-    description:
-      "Added soft wash capabilities and roof cleaning to serve more homeowners.",
-  },
-  {
-    year: "2022",
-    title: "Commercial Contracts",
-    description:
-      "Began serving local businesses, HOAs, and property management companies.",
-  },
-  {
-    year: "2023",
-    title: "Team Growth",
-    description:
-      "Hired additional certified technicians to meet growing demand across Pinellas.",
-  },
-  {
-    year: "2024",
-    title: "500+ Customers",
-    description:
-      "Reached a milestone of 500+ satisfied residential and commercial customers.",
-  },
+  { year: "2020", title: "Founded", desc: "Started in Seminole with a commitment to quality" },
+  { year: "2021", title: "Expanded", desc: "Added soft wash & roof cleaning services" },
+  { year: "2022", title: "Commercial", desc: "Began serving businesses & HOAs" },
+  { year: "2023", title: "Team Growth", desc: "Hired certified technicians" },
+  { year: "2024", title: "500+ Served", desc: "Milestone of 500+ happy customers" },
 ];
 
 const certifications = [
@@ -103,34 +73,30 @@ export default function AboutPage() {
   const statsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Hero animation
     if (heroRef.current) {
       gsap.fromTo(
         heroRef.current.querySelectorAll(".hero-animate"),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" }
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }
       );
     }
 
-    // Stats counter animation
     if (statsRef.current) {
-      const statItems = statsRef.current.querySelectorAll(".stat-value");
-      statItems.forEach((item) => {
-        gsap.fromTo(
-          item,
-          { opacity: 0, scale: 0.5 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 85%",
-            },
-          }
-        );
-      });
+      gsap.fromTo(
+        statsRef.current.querySelectorAll(".stat-item"),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: statsRef.current,
+            start: "top 85%",
+          },
+        }
+      );
     }
 
     return () => {
@@ -140,7 +106,7 @@ export default function AboutPage() {
 
   return (
     <main className="about-page">
-      {/* Hero */}
+      {/* Mobile Hero with CTA */}
       <section ref={heroRef} className="about-hero">
         <div className="hero-content">
           <span className="hero-animate hero-badge">
@@ -148,32 +114,36 @@ export default function AboutPage() {
             Our Story
           </span>
           <h1 className="hero-animate">
-            Seminole&apos;s Trusted{" "}
-            <span className="text-gradient">Pressure Washing</span> Team
+            Seminole&apos;s Trusted <span className="text-gradient">Pressure Washing</span> Team
           </h1>
-          <p className="hero-animate">
-            Family-owned and operated since 2020. We&apos;re not just cleaning
-            surfaces—we&apos;re restoring pride in your property, one job at a time.
+          <p className="hero-animate hero-subtitle">
+            Family-owned since 2020. Restoring pride in your property, one job at a time.
           </p>
+          
+          {/* Mobile CTA - prominent call button */}
+          <div className="hero-animate mobile-cta">
+            <a href={`tel:${siteConfig.phoneRaw}`} className="call-btn">
+              <Phone size={20} />
+              <div>
+                <span className="call-label">Call Now</span>
+                <span className="call-number">{siteConfig.phone}</span>
+              </div>
+            </a>
+          </div>
+
           <div className="hero-animate hero-info">
-            <span>
-              <MapPin size={16} />
-              Based in Seminole, FL
-            </span>
-            <span>
-              <Calendar size={16} />
-              Est. {siteConfig.foundingYear}
-            </span>
+            <span><MapPin size={14} /> Seminole, FL</span>
+            <span><Calendar size={14} /> Est. {siteConfig.foundingYear}</span>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats - Compact on mobile */}
       <section ref={statsRef} className="stats-section">
         <div className="stats-grid">
           {stats.map((stat, i) => (
             <div key={i} className="stat-item">
-              <stat.icon size={24} className="stat-icon" />
+              <stat.icon size={20} className="stat-icon" />
               <span className="stat-value">{stat.value}</span>
               <span className="stat-label">{stat.label}</span>
             </div>
@@ -181,136 +151,125 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* Story - Mobile optimized */}
       <section className="story-section">
-        <div className="story-content">
-          <div className="story-text">
-            <span className="section-label">Who We Are</span>
-            <h2>More Than Just a Cleaning Company</h2>
-            <p>
-              Stargate Pressure Washing was born from a simple belief: homeowners
-              deserve honest, high-quality exterior cleaning without the runaround.
-              Too many companies show up late, use harsh chemicals, or disappear
-              before the job is done right.
-            </p>
-            <p>
-              We do things differently. Every estimate is straightforward—no hidden
-              fees, no upselling. Every technician is trained, background-checked,
-              and treats your property with respect. And every job comes with our
-              satisfaction guarantee.
-            </p>
-            <p>
-              From our first driveway cleaning in 2020 to serving hundreds of homes
-              and businesses across Pinellas County, our mission hasn&apos;t changed:
-              deliver results that make you proud to come home.
-            </p>
-          </div>
+        <div className="story-card">
+          <span className="section-label">Who We Are</span>
+          <h2>More Than Just Cleaning</h2>
+          <p>
+            Stargate Pressure Washing was born from a simple belief: homeowners deserve honest, 
+            high-quality exterior cleaning without the runaround.
+          </p>
+          <p>
+            Every estimate is straightforward—no hidden fees. Every technician is trained and 
+            treats your property with respect. And every job comes with our satisfaction guarantee.
+          </p>
           <div className="story-image">
             <div
               className="image-placeholder"
               style={{
-                backgroundImage:
-                  "url(https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80)",
+                backgroundImage: "url(https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80)",
               }}
             />
             <div className="image-badge">
-              <CheckCircle2 size={20} />
-              <span>Licensed & Insured</span>
+              <CheckCircle2 size={16} />
+              Licensed & Insured
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* Values - Stacked list on mobile */}
       <section className="values-section">
         <div className="section-header">
           <span className="section-label">Our Values</span>
           <h2>What We Stand For</h2>
-          <p>The principles that guide every job we take on</p>
         </div>
-        <div className="values-grid">
+        <div className="values-container">
           {values.map((value, i) => (
-            <div key={i} className="value-card">
+            <div key={i} className="value-row">
               <div className="value-icon">
-                <value.icon size={24} />
+                <value.icon size={20} />
               </div>
-              <h3>{value.title}</h3>
-              <p>{value.description}</p>
+              <div className="value-content">
+                <h3>{value.title}</h3>
+                <p>{value.description}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Timeline - Horizontal scroll on mobile */}
       <section className="timeline-section">
         <div className="section-header">
           <span className="section-label">Our Journey</span>
-          <h2>Building Trust Since 2020</h2>
+          <h2>Since 2020</h2>
         </div>
-        <div className="timeline">
+        <div className="timeline-scroll">
           {timeline.map((item, i) => (
-            <div key={i} className="timeline-item">
-              <div className="timeline-marker">
-                <span className="timeline-year">{item.year}</span>
-              </div>
-              <div className="timeline-content">
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
+            <div key={i} className="timeline-card">
+              <span className="timeline-year">{item.year}</span>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Certifications */}
+      {/* Certifications - Compact */}
       <section className="certs-section">
-        <div className="certs-content">
-          <div className="certs-text">
-            <span className="section-label">Credentials</span>
-            <h2>Trained, Certified & Insured</h2>
-            <p>
-              We invest in ongoing training and carry full liability insurance so
-              you can have peace of mind when we&apos;re on your property.
-            </p>
-            <ul className="certs-list">
-              {certifications.map((cert, i) => (
-                <li key={i}>
-                  <CheckCircle2 size={18} />
-                  {cert}
-                </li>
-              ))}
-            </ul>
+        <div className="certs-card">
+          <div className="certs-header">
+            <Shield size={24} className="certs-icon" />
+            <div>
+              <h3>Trained & Certified</h3>
+              <p>Full liability insurance for your peace of mind</p>
+            </div>
           </div>
-          <div className="certs-cta">
-            <h3>Ready to See the Difference?</h3>
-            <p>
-              Join 500+ satisfied customers across Pinellas County. Get your free
-              estimate today.
-            </p>
-            <Link href="/contact" className="btn-primary">
-              Get Free Estimate
-              <ArrowRight size={18} />
-            </Link>
-            <a href={`tel:${siteConfig.phoneRaw}`} className="btn-secondary">
-              <Phone size={18} />
-              {siteConfig.phone}
-            </a>
+          <div className="certs-list">
+            {certifications.map((cert, i) => (
+              <div key={i} className="cert-item">
+                <CheckCircle2 size={16} />
+                <span>{cert}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Service Areas */}
-      <section className="areas-section">
-        <div className="section-header">
-          <span className="section-label">Where We Work</span>
-          <h2>Proudly Serving Pinellas County</h2>
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-card">
+          <h3>Ready to See the Difference?</h3>
+          <p>Join 500+ satisfied customers in Pinellas County</p>
+          <Link href="/contact" className="btn-primary">
+            Get Free Estimate
+            <ArrowRight size={18} />
+          </Link>
+          <a href={`tel:${siteConfig.phoneRaw}`} className="btn-secondary">
+            <Phone size={18} />
+            {siteConfig.phone}
+          </a>
         </div>
-        <div className="areas-grid">
-          {siteConfig.serviceAreas.map((area) => (
-            <span key={area.name} className="area-tag">
-              {area.name}
-            </span>
-          ))}
+      </section>
+
+      {/* Service Areas - Compact */}
+      <section className="areas-section">
+        <div className="areas-card">
+          <div className="areas-header">
+            <MapPin size={18} />
+            <span>Serving Pinellas County</span>
+          </div>
+          <div className="areas-tags">
+            {siteConfig.serviceAreas.filter(a => a.isPrimary).map((area) => (
+              <span key={area.name} className="area-tag featured">{area.name}</span>
+            ))}
+            {siteConfig.serviceAreas.filter(a => !a.isPrimary).slice(0, 4).map((area) => (
+              <span key={area.name} className="area-tag">{area.name}</span>
+            ))}
+            <span className="area-tag more">+{siteConfig.serviceAreas.length - 8} more</span>
+          </div>
         </div>
       </section>
 
@@ -322,41 +281,37 @@ export default function AboutPage() {
 
         /* Hero */
         .about-hero {
-          padding: 140px 24px 60px;
+          padding: 100px 20px 40px;
           text-align: center;
-          background: linear-gradient(
-            180deg,
-            rgba(124, 58, 237, 0.08) 0%,
-            transparent 100%
-          );
+          background: linear-gradient(180deg, rgba(124, 58, 237, 0.08) 0%, transparent 100%);
         }
 
         .hero-content {
-          max-width: 700px;
+          max-width: 600px;
           margin: 0 auto;
         }
 
         .hero-badge {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
+          gap: 6px;
+          padding: 6px 14px;
           background: rgba(124, 58, 237, 0.15);
           border: 1px solid rgba(124, 58, 237, 0.3);
           border-radius: 100px;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 500;
           color: #a78bfa;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
 
         .about-hero h1 {
-          font-size: 2.5rem;
+          font-size: 1.75rem;
           font-weight: 700;
           color: #fff;
-          line-height: 1.15;
-          margin-bottom: 20px;
-          letter-spacing: -0.03em;
+          line-height: 1.2;
+          margin-bottom: 12px;
+          letter-spacing: -0.02em;
         }
 
         .text-gradient {
@@ -366,25 +321,64 @@ export default function AboutPage() {
           background-clip: text;
         }
 
-        .about-hero p {
-          font-size: 17px;
+        .hero-subtitle {
+          font-size: 15px;
           color: #9ca3af;
-          line-height: 1.7;
-          margin-bottom: 24px;
+          line-height: 1.5;
+          margin-bottom: 20px;
+        }
+
+        /* Mobile CTA */
+        .mobile-cta {
+          margin-bottom: 20px;
+        }
+
+        .call-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          padding: 14px 24px;
+          background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+          border-radius: 12px;
+          text-decoration: none;
+          box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .call-btn svg {
+          color: #fff;
+        }
+
+        .call-btn div {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .call-label {
+          font-size: 11px;
+          color: rgba(255,255,255,0.7);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .call-number {
+          font-size: 16px;
+          font-weight: 700;
+          color: #fff;
         }
 
         .hero-info {
           display: flex;
-          flex-wrap: wrap;
           justify-content: center;
-          gap: 20px;
+          gap: 16px;
         }
 
         .hero-info span {
           display: flex;
           align-items: center;
-          gap: 8px;
-          font-size: 14px;
+          gap: 6px;
+          font-size: 13px;
           color: #6b7280;
         }
 
@@ -394,377 +388,327 @@ export default function AboutPage() {
 
         /* Stats */
         .stats-section {
-          padding: 40px 24px 60px;
-          max-width: 900px;
-          margin: 0 auto;
+          padding: 24px 20px 32px;
         }
 
         .stats-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
         }
 
         .stat-item {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 24px 16px;
+          padding: 16px 8px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 14px;
+          border-radius: 12px;
           text-align: center;
         }
 
         .stat-icon {
           color: #7c3aed;
-          margin-bottom: 12px;
+          margin-bottom: 8px;
         }
 
         .stat-value {
-          font-size: 2rem;
+          font-size: 1.25rem;
           font-weight: 700;
           color: #fff;
           line-height: 1;
-          margin-bottom: 4px;
+          margin-bottom: 2px;
         }
 
         .stat-label {
-          font-size: 13px;
+          font-size: 10px;
           color: #6b7280;
         }
 
         /* Section Headers */
         .section-header {
           text-align: center;
-          margin-bottom: 40px;
+          margin-bottom: 24px;
         }
 
         .section-label {
           display: inline-block;
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 600;
           color: #a78bfa;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          margin-bottom: 12px;
+          margin-bottom: 8px;
         }
 
         .section-header h2 {
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: 700;
           color: #fff;
-          margin-bottom: 12px;
-        }
-
-        .section-header p {
-          font-size: 15px;
-          color: #6b7280;
         }
 
         /* Story */
         .story-section {
-          padding: 60px 24px 80px;
-          max-width: 1100px;
-          margin: 0 auto;
+          padding: 32px 20px;
         }
 
-        .story-content {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 40px;
+        .story-card {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 16px;
+          padding: 24px 20px;
         }
 
-        .story-text h2 {
-          font-size: 1.75rem;
+        .story-card h2 {
+          font-size: 1.35rem;
           font-weight: 700;
           color: #fff;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
         }
 
-        .story-text p {
-          font-size: 15px;
+        .story-card > p {
+          font-size: 14px;
           color: #9ca3af;
-          line-height: 1.7;
-          margin-bottom: 16px;
+          line-height: 1.6;
+          margin-bottom: 12px;
         }
 
         .story-image {
           position: relative;
+          margin-top: 20px;
         }
 
         .image-placeholder {
           width: 100%;
-          height: 300px;
+          height: 180px;
           background-size: cover;
           background-position: center;
-          border-radius: 16px;
+          border-radius: 12px;
         }
 
         .image-badge {
           position: absolute;
-          bottom: -16px;
-          left: 20px;
+          bottom: -12px;
+          left: 16px;
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 12px 20px;
+          gap: 6px;
+          padding: 8px 14px;
           background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-          border-radius: 10px;
-          font-size: 14px;
+          border-radius: 8px;
+          font-size: 12px;
           font-weight: 600;
           color: #fff;
-          box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
         }
 
-        /* Values */
+        /* Values - Stacked list */
         .values-section {
-          padding: 80px 24px;
+          padding: 40px 20px;
           background: rgba(124, 58, 237, 0.03);
           border-top: 1px solid rgba(124, 58, 237, 0.1);
           border-bottom: 1px solid rgba(124, 58, 237, 0.1);
         }
 
-        .values-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 20px;
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .value-card {
-          padding: 28px 24px;
-          background: rgba(255, 255, 255, 0.02);
+        .values-container {
+          background: rgba(0, 0, 0, 0.3);
           border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 14px;
-          transition: all 0.3s;
+          border-radius: 16px;
+          overflow: hidden;
         }
 
-        .value-card:hover {
-          border-color: rgba(124, 58, 237, 0.3);
-          transform: translateY(-4px);
+        .value-row {
+          display: flex;
+          align-items: flex-start;
+          gap: 14px;
+          padding: 16px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .value-row:last-child {
+          border-bottom: none;
         }
 
         .value-icon {
-          width: 48px;
-          height: 48px;
+          width: 40px;
+          height: 40px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(124, 58, 237, 0.15);
-          border-radius: 12px;
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(124, 58, 237, 0.1) 100%);
+          border-radius: 10px;
           color: #a78bfa;
-          margin-bottom: 16px;
+          flex-shrink: 0;
         }
 
-        .value-card h3 {
-          font-size: 1.1rem;
+        .value-content h3 {
+          font-size: 15px;
           font-weight: 600;
           color: #fff;
-          margin-bottom: 8px;
+          margin-bottom: 4px;
         }
 
-        .value-card p {
-          font-size: 14px;
+        .value-content p {
+          font-size: 13px;
           color: #9ca3af;
-          line-height: 1.6;
+          line-height: 1.4;
         }
 
-        /* Timeline */
+        /* Timeline - Horizontal scroll */
         .timeline-section {
-          padding: 80px 24px;
-          max-width: 700px;
-          margin: 0 auto;
+          padding: 40px 20px;
         }
 
-        .timeline {
-          position: relative;
-          padding-left: 32px;
+        .timeline-scroll {
+          display: flex;
+          gap: 12px;
+          overflow-x: auto;
+          padding-bottom: 16px;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .timeline::before {
-          content: "";
-          position: absolute;
-          left: 6px;
-          top: 8px;
-          bottom: 8px;
-          width: 2px;
-          background: rgba(124, 58, 237, 0.3);
+        .timeline-scroll::-webkit-scrollbar {
+          display: none;
         }
 
-        .timeline-item {
-          position: relative;
-          padding-bottom: 32px;
-        }
-
-        .timeline-item:last-child {
-          padding-bottom: 0;
-        }
-
-        .timeline-marker {
-          position: absolute;
-          left: -32px;
-          top: 0;
+        .timeline-card {
+          flex: 0 0 140px;
+          padding: 16px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 12px;
         }
 
         .timeline-year {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 14px;
-          height: 14px;
-          background: #7c3aed;
-          border-radius: 50%;
-          font-size: 0;
+          display: inline-block;
+          padding: 4px 10px;
+          background: rgba(124, 58, 237, 0.2);
+          border-radius: 6px;
+          font-size: 12px;
+          font-weight: 700;
+          color: #a78bfa;
+          margin-bottom: 10px;
         }
 
-        .timeline-content h3 {
-          font-size: 1rem;
+        .timeline-card h3 {
+          font-size: 14px;
           font-weight: 600;
           color: #fff;
           margin-bottom: 4px;
         }
 
-        .timeline-content h3::before {
-          content: attr(data-year);
-        }
-
-        .timeline-item .timeline-content::before {
-          content: "";
-          display: block;
+        .timeline-card p {
           font-size: 12px;
-          font-weight: 600;
-          color: #7c3aed;
-          margin-bottom: 4px;
-        }
-
-        .timeline-item:nth-child(1) .timeline-content::before {
-          content: "2020";
-        }
-        .timeline-item:nth-child(2) .timeline-content::before {
-          content: "2021";
-        }
-        .timeline-item:nth-child(3) .timeline-content::before {
-          content: "2022";
-        }
-        .timeline-item:nth-child(4) .timeline-content::before {
-          content: "2023";
-        }
-        .timeline-item:nth-child(5) .timeline-content::before {
-          content: "2024";
-        }
-
-        .timeline-content p {
-          font-size: 14px;
-          color: #9ca3af;
-          line-height: 1.5;
+          color: #6b7280;
+          line-height: 1.4;
         }
 
         /* Certifications */
         .certs-section {
-          padding: 80px 24px;
-          max-width: 1100px;
-          margin: 0 auto;
+          padding: 32px 20px;
         }
 
-        .certs-content {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 40px;
+        .certs-card {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 16px;
+          padding: 20px;
         }
 
-        .certs-text h2 {
-          font-size: 1.75rem;
-          font-weight: 700;
-          color: #fff;
+        .certs-header {
+          display: flex;
+          align-items: center;
+          gap: 14px;
           margin-bottom: 16px;
         }
 
-        .certs-text > p {
-          font-size: 15px;
-          color: #9ca3af;
-          line-height: 1.6;
-          margin-bottom: 24px;
+        .certs-icon {
+          color: #22c55e;
+        }
+
+        .certs-header h3 {
+          font-size: 16px;
+          font-weight: 600;
+          color: #fff;
+          margin-bottom: 2px;
+        }
+
+        .certs-header p {
+          font-size: 13px;
+          color: #6b7280;
         }
 
         .certs-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
+          gap: 10px;
         }
 
-        .certs-list li {
+        .cert-item {
           display: flex;
           align-items: center;
-          gap: 10px;
-          font-size: 14px;
+          gap: 8px;
+          font-size: 13px;
           color: #e5e7eb;
         }
 
-        .certs-list svg {
+        .cert-item svg {
           color: #22c55e;
           flex-shrink: 0;
         }
 
-        .certs-cta {
-          background: linear-gradient(
-            135deg,
-            rgba(124, 58, 237, 0.15) 0%,
-            rgba(124, 58, 237, 0.05) 100%
-          );
+        /* CTA Section */
+        .cta-section {
+          padding: 32px 20px;
+        }
+
+        .cta-card {
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.05) 100%);
           border: 1px solid rgba(124, 58, 237, 0.25);
-          border-radius: 20px;
-          padding: 32px 24px;
+          border-radius: 16px;
+          padding: 28px 20px;
           text-align: center;
         }
 
-        .certs-cta h3 {
-          font-size: 1.35rem;
+        .cta-card h3 {
+          font-size: 1.25rem;
           font-weight: 700;
           color: #fff;
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
 
-        .certs-cta > p {
+        .cta-card > p {
           font-size: 14px;
           color: #9ca3af;
-          margin-bottom: 24px;
-          line-height: 1.5;
+          margin-bottom: 20px;
         }
 
         .btn-primary {
-          display: inline-flex;
+          display: flex;
           align-items: center;
           justify-content: center;
           gap: 8px;
-          padding: 14px 28px;
+          padding: 14px 24px;
           background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
           border-radius: 10px;
           font-size: 15px;
           font-weight: 600;
           color: #fff;
           text-decoration: none;
-          transition: all 0.2s;
           box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
           margin-bottom: 12px;
           width: 100%;
         }
 
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
-        }
-
         .btn-secondary {
-          display: inline-flex;
+          display: flex;
           align-items: center;
           justify-content: center;
           gap: 8px;
-          padding: 14px 28px;
+          padding: 14px 24px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 10px;
@@ -772,98 +716,232 @@ export default function AboutPage() {
           font-weight: 600;
           color: #fff;
           text-decoration: none;
-          transition: all 0.2s;
           width: 100%;
-        }
-
-        .btn-secondary:hover {
-          background: rgba(255, 255, 255, 0.1);
         }
 
         /* Service Areas */
         .areas-section {
-          padding: 60px 24px 100px;
-          max-width: 900px;
-          margin: 0 auto;
+          padding: 0 20px 60px;
         }
 
-        .areas-grid {
+        .areas-card {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 12px;
+          padding: 16px;
+        }
+
+        .areas-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 12px;
+          color: #a78bfa;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .areas-tags {
           display: flex;
           flex-wrap: wrap;
-          justify-content: center;
-          gap: 10px;
+          gap: 8px;
         }
 
         .area-tag {
-          padding: 10px 18px;
+          padding: 6px 12px;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 100px;
-          font-size: 14px;
+          font-size: 12px;
           color: #9ca3af;
-          transition: all 0.2s;
         }
 
-        .area-tag:hover {
+        .area-tag.featured {
           background: rgba(124, 58, 237, 0.1);
           border-color: rgba(124, 58, 237, 0.3);
           color: #a78bfa;
         }
 
-        /* Responsive */
+        .area-tag.more {
+          background: transparent;
+          border-style: dashed;
+          color: #6b7280;
+        }
+
+        /* Desktop Responsive */
         @media (min-width: 640px) {
+          .about-hero {
+            padding: 140px 24px 60px;
+          }
+
           .about-hero h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
+          }
+
+          .hero-subtitle {
+            font-size: 17px;
+          }
+
+          .mobile-cta {
+            display: none;
           }
 
           .stats-grid {
-            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
           }
 
-          .values-grid {
+          .stat-item {
+            padding: 24px 16px;
+          }
+
+          .stat-value {
+            font-size: 2rem;
+          }
+
+          .stat-label {
+            font-size: 13px;
+          }
+
+          .story-card {
+            padding: 32px;
+          }
+
+          .image-placeholder {
+            height: 280px;
+          }
+
+          .values-container {
+            display: grid;
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .certs-cta {
-            padding: 40px 32px;
+          .value-row {
+            padding: 20px;
+          }
+
+          .value-row:nth-child(odd) {
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+          }
+
+          .value-row:nth-child(1),
+          .value-row:nth-child(2) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          }
+
+          .value-row:nth-child(3),
+          .value-row:nth-child(4) {
+            border-bottom: none;
+          }
+
+          .timeline-scroll {
+            justify-content: center;
+          }
+
+          .timeline-card {
+            flex: 0 0 180px;
+          }
+
+          .certs-card {
+            padding: 28px;
+          }
+
+          .cta-card {
+            padding: 40px;
           }
 
           .btn-primary,
           .btn-secondary {
             width: auto;
+            display: inline-flex;
+          }
+
+          .btn-primary {
+            margin-right: 12px;
+            margin-bottom: 0;
           }
         }
 
         @media (min-width: 1024px) {
           .about-hero h1 {
-            font-size: 3.25rem;
+            font-size: 3rem;
           }
 
-          .story-content {
+          .stats-section {
+            max-width: 900px;
+            margin: 0 auto;
+          }
+
+          .story-section {
+            max-width: 900px;
+            margin: 0 auto;
+          }
+
+          .story-card {
+            display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 40px;
             align-items: center;
           }
 
-          .image-placeholder {
-            height: 400px;
+          .story-card .section-label,
+          .story-card h2,
+          .story-card > p {
+            grid-column: 1;
           }
 
-          .values-grid {
+          .story-image {
+            grid-column: 2;
+            grid-row: 1 / span 4;
+            margin-top: 0;
+          }
+
+          .image-placeholder {
+            height: 320px;
+          }
+
+          .values-section {
+            padding: 60px 24px;
+          }
+
+          .values-container {
+            max-width: 900px;
+            margin: 0 auto;
             grid-template-columns: repeat(4, 1fr);
           }
 
-          .certs-content {
-            grid-template-columns: 1fr 1fr;
-            align-items: start;
+          .value-row {
+            flex-direction: column;
+            text-align: center;
+            padding: 24px 16px;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: none !important;
           }
 
-          .certs-cta {
-            position: sticky;
-            top: 100px;
+          .value-row:last-child {
+            border-right: none;
+          }
+
+          .value-icon {
+            margin-bottom: 12px;
+          }
+
+          .timeline-section {
+            max-width: 900px;
+            margin: 0 auto;
+          }
+
+          .certs-section,
+          .cta-section {
+            max-width: 700px;
+            margin: 0 auto;
+          }
+
+          .areas-section {
+            max-width: 700px;
+            margin: 0 auto;
           }
         }
       `}</style>
     </main>
   );
 }
-
