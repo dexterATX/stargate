@@ -307,8 +307,8 @@ export default function AboutPage() {
         </div>
         <div className="areas-grid">
           {siteConfig.serviceAreas.map((area) => (
-            <span key={area} className="area-tag">
-              {area}
+            <span key={area.name} className="area-tag">
+              {area.name}
             </span>
           ))}
         </div>

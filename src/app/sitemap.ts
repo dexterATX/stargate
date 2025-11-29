@@ -1,77 +1,76 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 
+// 2025 SEO Optimized Dynamic Sitemap
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
+  const currentDate = new Date();
   
-  // Main pages
-  const mainPages = [
+  // Main pages with priority weighting
+  const mainPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/gallery`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/testimonials`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
+  ];
+
+  // Individual service pages (critical for long-tail SEO)
+  const servicePages: MetadataRoute.Sitemap = siteConfig.services.map((service) => ({
+    url: `${baseUrl}/services/${service.id}`,
+    lastModified: currentDate,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  // Service area pages (critical for local SEO)
+  const areaPages: MetadataRoute.Sitemap = siteConfig.serviceAreas.map((area) => ({
+    url: `${baseUrl}/service-areas/${area.name.toLowerCase().replace(/\s+/g, "-").replace(/\./g, "")}`,
+    lastModified: currentDate,
+    changeFrequency: "monthly" as const,
+    priority: area.isPrimary ? 0.75 : 0.65,
+  }));
+
+  // FAQ page (important for AI Overview)
+  const faqPage: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/service-areas`,
-      lastModified: new Date(),
+      url: `${baseUrl}/faq`,
+      lastModified: currentDate,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
   ];
 
-  // Service pages
-  const servicePages = siteConfig.services.map((service) => ({
-    url: `${baseUrl}/services/${service.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
-
-  // Service area pages (for local SEO)
-  const areaPages = siteConfig.serviceAreas.map((area) => ({
-    url: `${baseUrl}/service-areas/${area.toLowerCase().replace(/\s+/g, "-").replace(/\./g, "")}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
-  return [...mainPages, ...servicePages, ...areaPages];
+  return [...mainPages, ...servicePages, ...areaPages, ...faqPage];
 }
-

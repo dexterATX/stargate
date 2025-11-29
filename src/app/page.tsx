@@ -18,13 +18,40 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { SectionDivider } from "@/components/SectionDivider";
 import { siteConfig } from "@/config/site";
 
-// Page-specific SEO metadata
+// 2025 SEO Optimized Homepage Metadata
 export const metadata: Metadata = {
   title: `${siteConfig.name} | #1 Pressure Washing in Seminole & Pinellas County, FL`,
-  description: `Professional pressure washing in Seminole, FL. ⭐ ${siteConfig.rating.count}+ 5-star reviews. Driveway cleaning, house washing, roof cleaning & more. Free estimates! Call ${siteConfig.phone}`,
+  description: `Professional pressure washing in Seminole, FL. ⭐ ${siteConfig.rating.count}+ 5-star reviews. House washing from $199, driveway cleaning from $149, roof soft wash from $299. Licensed & insured. Free estimates! Call ${siteConfig.phone}`,
+  keywords: [
+    "pressure washing Seminole FL",
+    "pressure washing near me",
+    "power washing Pinellas County",
+    "house washing Seminole",
+    "driveway cleaning Largo FL", 
+    "roof cleaning Clearwater",
+    "soft wash house cleaning",
+    "commercial pressure washing Tampa Bay",
+    "pool deck cleaning",
+    "exterior cleaning services Pinellas",
+  ],
   openGraph: {
     title: `${siteConfig.name} | #1 Rated Pressure Washing in Seminole, FL`,
-    description: `Transform your property with professional pressure washing. ${siteConfig.rating.count}+ happy customers in Pinellas County. Free estimates, same-day service available!`,
+    description: `Transform your property with professional pressure washing. ${siteConfig.rating.count}+ happy customers in Pinellas County. House washing, driveway cleaning, roof soft wash & more. Free estimates, same-day service!`,
+    type: "website",
+    url: siteConfig.url,
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} - Professional Pressure Washing in Seminole, FL`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | #1 Pressure Washing Seminole FL`,
+    description: `${siteConfig.rating.count}+ 5-star reviews. House washing, driveway cleaning, roof soft wash. Free estimates!`,
   },
   alternates: {
     canonical: siteConfig.url,

@@ -39,7 +39,7 @@ export function Footer() {
             <div className="footer-mobile-areas">
               <span className="footer-areas-label">Serving:</span>
               <span className="footer-areas-text">
-                {siteConfig.serviceAreas.slice(0, 5).join(" · ")} & more
+                {siteConfig.serviceAreas.slice(0, 5).map(a => a.name).join(" · ")} & more
               </span>
             </div>
           </div>
@@ -95,7 +95,7 @@ export function Footer() {
                 <h4 className="footer-col-title">Service Areas</h4>
                 <div className="footer-areas-grid">
                   {siteConfig.serviceAreas.slice(0, 8).map((area) => (
-                    <span key={area} className="footer-area-tag">{area}</span>
+                    <span key={area.name} className="footer-area-tag">{area.name}</span>
                   ))}
                   {siteConfig.serviceAreas.length > 8 && (
                     <span className="footer-area-more">+{siteConfig.serviceAreas.length - 8} more</span>

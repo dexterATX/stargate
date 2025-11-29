@@ -280,7 +280,7 @@ export default function ContactPage() {
                 <h4>Areas We Serve</h4>
                 <div className="areas-list">
                   {siteConfig.serviceAreas.map((area) => (
-                    <span key={area} className="area-tag">{area}</span>
+                    <span key={area.name} className="area-tag">{area.name}</span>
                   ))}
                 </div>
               </div>
