@@ -12,14 +12,18 @@ import {
   Check,
   ArrowRight,
   Phone,
-  Calculator,
   BadgePercent,
   Star,
   Zap,
-  HelpCircle,
+  ChevronDown,
+  Sparkles,
+  Clock,
+  CreditCard,
+  Users,
 } from "lucide-react";
 import { gsap } from "gsap";
 import { siteConfig } from "@/config/site";
+import { SectionDivider } from "@/components/SectionDivider";
 
 const pricingTiers = [
   {
@@ -29,30 +33,18 @@ const pricingTiers = [
     description: "Complete exterior soft wash",
     startingPrice: 199,
     unit: "home",
-    features: [
-      "All siding types",
-      "Soft wash technique",
-      "Mold & mildew removal",
-      "Window frames included",
-      "Walkway rinse",
-    ],
+    features: ["All siding types", "Soft wash technique", "Mold & mildew removal", "Window frames included", "Walkway rinse"],
     popular: true,
-    note: "Price varies by square footage",
+    note: "Price varies by sq ft",
   },
   {
     id: "driveway",
     icon: Car,
-    title: "Driveway Cleaning",
+    title: "Driveway",
     description: "Concrete & paver restoration",
     startingPrice: 149,
     unit: "driveway",
-    features: [
-      "Up to 600 sq ft",
-      "Oil stain treatment",
-      "Surface cleaning",
-      "Edge detail work",
-      "Sidewalk included",
-    ],
+    features: ["Up to 600 sq ft", "Oil stain treatment", "Surface cleaning", "Edge detail work", "Sidewalk included"],
     popular: false,
     note: "$0.20/sq ft over 600",
   },
@@ -63,15 +55,9 @@ const pricingTiers = [
     description: "Low-pressure soft wash",
     startingPrice: 299,
     unit: "roof",
-    features: [
-      "Shingle safe process",
-      "Black streak removal",
-      "Algae & moss treatment",
-      "Gutter face cleaning",
-      "2-year warranty",
-    ],
+    features: ["Shingle safe process", "Black streak removal", "Algae treatment", "Gutter face cleaning", "2-year warranty"],
     popular: false,
-    note: "Price by roof size & pitch",
+    note: "Price by roof size",
   },
   {
     id: "pool-deck",
@@ -80,13 +66,7 @@ const pricingTiers = [
     description: "Safe pool area cleaning",
     startingPrice: 179,
     unit: "deck",
-    features: [
-      "Up to 500 sq ft",
-      "Non-slip treatment",
-      "Algae removal",
-      "Pool-safe products",
-      "Coping cleaning",
-    ],
+    features: ["Up to 500 sq ft", "Non-slip treatment", "Algae removal", "Pool-safe products", "Coping cleaning"],
     popular: false,
     note: "$0.25/sq ft over 500",
   },
@@ -97,15 +77,9 @@ const pricingTiers = [
     description: "Wood, vinyl & composite",
     startingPrice: 99,
     unit: "project",
-    features: [
-      "Per linear ft pricing",
-      "All material types",
-      "Stain prep available",
-      "Oxidation removal",
-      "Gate hardware care",
-    ],
+    features: ["Per linear ft pricing", "All material types", "Stain prep available", "Oxidation removal", "Gate care"],
     popular: false,
-    note: "Decks priced by sq ft",
+    note: "Decks by sq ft",
   },
   {
     id: "commercial",
@@ -114,48 +88,33 @@ const pricingTiers = [
     description: "Businesses & properties",
     startingPrice: null,
     unit: "custom",
-    features: [
-      "Storefronts & lots",
-      "Monthly contracts",
-      "Multi-property deals",
-      "After-hours service",
-      "Volume discounts",
-    ],
+    features: ["Storefronts & lots", "Monthly contracts", "Multi-property deals", "After-hours service", "Volume discounts"],
     popular: false,
     note: "Free on-site estimate",
   },
 ];
 
 const addOns = [
-  { name: "Gutter Cleaning (interior)", price: "$75+" },
-  { name: "Window Cleaning (exterior)", price: "$5/window" },
-  { name: "Patio Furniture Cleaning", price: "$25" },
-  { name: "Trash Can Sanitizing", price: "$15/can" },
-  { name: "Rust Stain Treatment", price: "$25+" },
-  { name: "Sealing (concrete/pavers)", price: "Quote" },
+  { name: "Gutter Cleaning", price: "$75+" },
+  { name: "Window Cleaning", price: "$5/win" },
+  { name: "Patio Furniture", price: "$25" },
+  { name: "Trash Can Sanitizing", price: "$15" },
+  { name: "Rust Treatment", price: "$25+" },
+  { name: "Sealing", price: "Quote" },
 ];
 
 const faqs = [
-  {
-    q: "How do you calculate the final price?",
-    a: "We measure your surfaces and provide an exact quote based on square footage, condition, and any special treatments needed. The prices shown are minimums for typical residential jobs.",
-  },
-  {
-    q: "Do you offer discounts for multiple services?",
-    a: "Yes! Bundle 2+ services and save 10%. We also offer 15% off for seniors (65+), veterans, and first responders. Ask about our referral program too.",
-  },
-  {
-    q: "Is there a trip charge or minimum?",
-    a: "We have a $99 minimum service charge. There's no trip charge within our Pinellas County service area.",
-  },
-  {
-    q: "When is payment due?",
-    a: "Payment is due upon completion after you've inspected our work. We accept cash, check, and all major credit cards.",
-  },
-  {
-    q: "What if I'm not satisfied?",
-    a: "We offer a 100% satisfaction guarantee. If you're not happy with any area, we'll re-clean it at no extra charge.",
-  },
+  { q: "How do you calculate the final price?", a: "We measure your surfaces and provide an exact quote based on square footage, condition, and any special treatments needed. The prices shown are minimums for typical residential jobs." },
+  { q: "Do you offer discounts?", a: "Yes! Bundle 2+ services for 10% off. Seniors (65+), veterans, and first responders get 15% off. Plus $25 referral credits." },
+  { q: "Is there a minimum charge?", a: "We have a $99 minimum service charge. There's no trip charge within our Pinellas County service area." },
+  { q: "When is payment due?", a: "Payment is due upon completion after you've inspected our work. We accept cash, check, and all major credit cards." },
+  { q: "What if I'm not satisfied?", a: "We offer a 100% satisfaction guarantee. If you're not happy, we'll re-clean it at no extra charge." },
+];
+
+const trustBadges = [
+  { icon: Clock, text: "Same-day quotes" },
+  { icon: CreditCard, text: "Pay after service" },
+  { icon: Users, text: "500+ customers" },
 ];
 
 export default function PricingPage() {
@@ -166,8 +125,8 @@ export default function PricingPage() {
     if (heroRef.current) {
       gsap.fromTo(
         heroRef.current.querySelectorAll(".hero-animate"),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" }
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }
       );
     }
   }, []);
@@ -182,16 +141,27 @@ export default function PricingPage() {
             Transparent Pricing
           </span>
           <h1 className="hero-animate">
-            Honest Prices.{" "}
-            <span className="text-gradient">No Surprises.</span>
+            Honest Prices. <span className="text-gradient">No Surprises.</span>
           </h1>
-          <p className="hero-animate">
-            See our competitive rates below. Every quote includes all labor, equipment,
-            and eco-friendly cleaning solutions. No hidden fees, ever.
+          <p className="hero-animate hero-subtitle">
+            Competitive rates with no hidden fees. Every quote includes labor, equipment, and eco-friendly solutions.
           </p>
-          <div className="hero-animate hero-ctas">
+          
+          {/* Mobile CTA */}
+          <div className="hero-animate mobile-cta">
+            <a href={`tel:${siteConfig.phoneRaw}`} className="call-btn">
+              <Phone size={18} />
+              <div>
+                <span className="call-label">Get Quote Now</span>
+                <span className="call-number">{siteConfig.phone}</span>
+              </div>
+            </a>
+          </div>
+
+          {/* Desktop CTAs */}
+          <div className="hero-animate desktop-ctas">
             <Link href="/contact" className="btn-primary">
-              <Calculator size={18} />
+              <Sparkles size={18} />
               Get Exact Quote
             </Link>
             <a href={`tel:${siteConfig.phoneRaw}`} className="btn-secondary">
@@ -199,34 +169,76 @@ export default function PricingPage() {
               {siteConfig.phone}
             </a>
           </div>
+
+          {/* Trust badges */}
+          <div className="hero-animate trust-row">
+            {trustBadges.map((badge, i) => (
+              <div key={i} className="trust-badge">
+                <badge.icon size={14} />
+                <span>{badge.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Pricing Grid */}
-      <section className="pricing-grid">
+      <SectionDivider />
+
+      {/* Pricing Section */}
+      <section className="pricing-section">
         <div className="section-header">
           <span className="section-label">Service Pricing</span>
           <h2>Starting Rates</h2>
-          <p>Prices based on typical residential properties in Pinellas County</p>
+          <p className="desktop-only">Prices for typical residential properties in Pinellas County</p>
         </div>
 
-        <div className="grid">
+        {/* Mobile: Horizontal scroll */}
+        <div className="pricing-scroll">
           {pricingTiers.map((tier) => (
-            <article
-              key={tier.id}
-              className={`pricing-card ${tier.popular ? "popular" : ""}`}
-            >
-              {tier.popular && (
-                <span className="popular-badge">
-                  <Star size={12} /> Most Popular
-                </span>
-              )}
-              <div className="card-icon">
+            <article key={tier.id} className={`pricing-card-mobile ${tier.popular ? "popular" : ""}`}>
+              {tier.popular && <span className="popular-tag"><Star size={10} /> Popular</span>}
+              <div className="card-header">
+                <div className="card-icon">
+                  <tier.icon size={20} />
+                </div>
+                <div>
+                  <h3>{tier.title}</h3>
+                  <p>{tier.description}</p>
+                </div>
+              </div>
+              <div className="card-price">
+                {tier.startingPrice ? (
+                  <>
+                    <span className="price-from">From</span>
+                    <span className="price-amount">${tier.startingPrice}</span>
+                  </>
+                ) : (
+                  <span className="price-custom">Custom</span>
+                )}
+              </div>
+              <ul className="card-features">
+                {tier.features.slice(0, 3).map((f, i) => (
+                  <li key={i}><Check size={12} />{f}</li>
+                ))}
+              </ul>
+              <Link href="/contact" className="card-cta">
+                Get Quote <ArrowRight size={14} />
+              </Link>
+            </article>
+          ))}
+        </div>
+
+        {/* Desktop: Grid */}
+        <div className="pricing-grid">
+          {pricingTiers.map((tier) => (
+            <article key={tier.id} className={`pricing-card ${tier.popular ? "popular" : ""}`}>
+              {tier.popular && <span className="popular-badge"><Star size={12} /> Most Popular</span>}
+              <div className="card-icon-lg">
                 <tier.icon size={24} />
               </div>
               <h3>{tier.title}</h3>
-              <p className="card-description">{tier.description}</p>
-              <div className="card-price">
+              <p className="card-desc">{tier.description}</p>
+              <div className="card-price-lg">
                 {tier.startingPrice ? (
                   <>
                     <span className="price-from">From</span>
@@ -237,32 +249,29 @@ export default function PricingPage() {
                   <span className="price-custom">Custom Quote</span>
                 )}
               </div>
-              <ul className="card-features">
-                {tier.features.map((feature, i) => (
-                  <li key={i}>
-                    <Check size={14} />
-                    {feature}
-                  </li>
+              <ul className="card-features-lg">
+                {tier.features.map((f, i) => (
+                  <li key={i}><Check size={14} />{f}</li>
                 ))}
               </ul>
               <span className="card-note">{tier.note}</span>
-              <Link href="/contact" className="card-cta">
-                Get Quote
-                <ArrowRight size={16} />
+              <Link href="/contact" className="card-cta-lg">
+                Get Quote <ArrowRight size={16} />
               </Link>
             </article>
           ))}
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Add-Ons */}
       <section className="addons-section">
         <div className="section-header">
-          <span className="section-label">Add-On Services</span>
-          <h2>Enhance Your Clean</h2>
-          <p>Popular extras to complete your property transformation</p>
+          <span className="section-label">Extras</span>
+          <h2>Add-On Services</h2>
         </div>
-        <div className="addons-grid">
+        <div className="addons-container">
           {addOns.map((addon, i) => (
             <div key={i} className="addon-item">
               <span className="addon-name">{addon.name}</span>
@@ -272,23 +281,27 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Discounts Banner */}
+      <SectionDivider />
+
+      {/* Discounts */}
       <section className="discounts-section">
-        <div className="discounts-content">
-          <Zap size={32} className="discounts-icon" />
-          <div className="discounts-text">
-            <h3>Save More on Your Service</h3>
-            <p>
-              <strong>10% off</strong> when you bundle 2+ services •{" "}
-              <strong>15% off</strong> for seniors, veterans & first responders •{" "}
-              <strong>$25 credit</strong> for every referral
-            </p>
+        <div className="discount-card">
+          <Zap size={24} className="discount-icon" />
+          <div className="discount-content">
+            <h3>Save More</h3>
+            <div className="discount-items">
+              <span><strong>10% off</strong> bundle 2+ services</span>
+              <span><strong>15% off</strong> seniors/veterans</span>
+              <span><strong>$25</strong> referral credit</span>
+            </div>
           </div>
-          <Link href="/contact" className="btn-primary">
-            Claim Discount
+          <Link href="/contact" className="discount-cta">
+            Claim <ArrowRight size={14} />
           </Link>
         </div>
       </section>
+
+      <SectionDivider />
 
       {/* FAQ */}
       <section className="faq-section">
@@ -298,57 +311,42 @@ export default function PricingPage() {
         </div>
         <div className="faq-list">
           {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className={`faq-item ${activeFaq === i ? "active" : ""}`}
-            >
+            <div key={i} className={`faq-item ${activeFaq === i ? "active" : ""}`}>
               <button
                 className="faq-question"
                 onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                aria-expanded={activeFaq === i}
               >
-                <HelpCircle size={18} />
-                {faq.q}
-                <span className="faq-toggle">{activeFaq === i ? "−" : "+"}</span>
+                <span>{faq.q}</span>
+                <ChevronDown size={18} className={`faq-chevron ${activeFaq === i ? "rotated" : ""}`} />
               </button>
-              {activeFaq === i && (
-                <div className="faq-answer">
-                  <p>{faq.a}</p>
-                </div>
-              )}
+              <div className={`faq-answer ${activeFaq === i ? "open" : ""}`}>
+                <p>{faq.a}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Final CTA */}
       <section className="final-cta">
-        <div className="cta-content">
-          <h2>Ready for Your Free Estimate?</h2>
-          <p>
-            Get an exact quote for your property in minutes. No obligation, no
-            pressure—just honest pricing.
-          </p>
+        <div className="cta-card">
+          <h2>Ready for Your Free Quote?</h2>
+          <p>Get an exact price for your property in minutes</p>
           <div className="cta-buttons">
             <Link href="/contact" className="btn-primary">
               Request Free Quote
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </Link>
             <a href={`tel:${siteConfig.phoneRaw}`} className="btn-secondary">
-              <Phone size={18} />
-              Call Now
+              <Phone size={16} />
+              {siteConfig.phone}
             </a>
           </div>
-          <div className="cta-trust">
-            <span>
-              <Check size={14} /> No payment until complete
-            </span>
-            <span>
-              <Check size={14} /> 100% satisfaction guarantee
-            </span>
-            <span>
-              <Check size={14} /> Same-day quotes available
-            </span>
+          <div className="cta-guarantees">
+            <span><Check size={14} /> No payment until complete</span>
+            <span><Check size={14} /> 100% satisfaction guarantee</span>
           </div>
         </div>
       </section>
@@ -359,43 +357,42 @@ export default function PricingPage() {
           background: #030308;
         }
 
+        .desktop-only { display: none; }
+
+        /* ==================== MOBILE ==================== */
+        
         /* Hero */
         .pricing-hero {
-          padding: 140px 24px 70px;
+          padding: 90px 16px 28px;
           text-align: center;
-          background: linear-gradient(
-            180deg,
-            rgba(124, 58, 237, 0.08) 0%,
-            transparent 100%
-          );
+          background: linear-gradient(180deg, rgba(124, 58, 237, 0.06) 0%, transparent 100%);
         }
 
         .hero-content {
-          max-width: 700px;
+          max-width: 500px;
           margin: 0 auto;
         }
 
         .hero-badge {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
+          gap: 6px;
+          padding: 5px 12px;
           background: rgba(124, 58, 237, 0.15);
           border: 1px solid rgba(124, 58, 237, 0.3);
           border-radius: 100px;
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 500;
           color: #a78bfa;
-          margin-bottom: 24px;
+          margin-bottom: 12px;
         }
 
         .pricing-hero h1 {
-          font-size: 2.75rem;
+          font-size: 1.5rem;
           font-weight: 700;
           color: #fff;
-          line-height: 1.15;
-          margin-bottom: 20px;
-          letter-spacing: -0.03em;
+          line-height: 1.2;
+          margin-bottom: 8px;
         }
 
         .text-gradient {
@@ -405,189 +402,177 @@ export default function PricingPage() {
           background-clip: text;
         }
 
-        .pricing-hero p {
-          font-size: 17px;
+        .hero-subtitle {
+          font-size: 14px;
           color: #9ca3af;
-          line-height: 1.7;
-          margin-bottom: 32px;
+          line-height: 1.4;
+          margin-bottom: 16px;
         }
 
-        .hero-ctas {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
+        .mobile-cta {
+          margin-bottom: 16px;
         }
 
-        .btn-primary {
+        .call-btn {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 14px 28px;
+          gap: 10px;
+          padding: 12px 20px;
           background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
           border-radius: 10px;
-          font-size: 15px;
-          font-weight: 600;
-          color: #fff;
           text-decoration: none;
-          transition: all 0.2s;
-          box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
-          border: none;
-          cursor: pointer;
+          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
         }
 
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
-        }
+        .call-btn svg { color: #fff; }
+        .call-btn div { display: flex; flex-direction: column; align-items: flex-start; }
+        .call-label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; }
+        .call-number { font-size: 14px; font-weight: 700; color: #fff; }
 
-        .btn-secondary {
-          display: inline-flex;
-          align-items: center;
+        .desktop-ctas { display: none; }
+
+        .trust-row {
+          display: flex;
           justify-content: center;
-          gap: 8px;
-          padding: 14px 28px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
-          font-size: 15px;
-          font-weight: 600;
-          color: #fff;
-          text-decoration: none;
-          transition: all 0.2s;
+          gap: 12px;
+          flex-wrap: wrap;
         }
 
-        .btn-secondary:hover {
-          background: rgba(255, 255, 255, 0.1);
+        .trust-badge {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 11px;
+          color: #6b7280;
         }
+
+        .trust-badge svg { color: #22c55e; }
 
         /* Section Headers */
         .section-header {
           text-align: center;
-          margin-bottom: 40px;
+          margin-bottom: 16px;
+          padding: 0 16px;
         }
 
         .section-label {
           display: inline-block;
-          font-size: 12px;
+          font-size: 10px;
           font-weight: 600;
           color: #a78bfa;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          margin-bottom: 12px;
+          margin-bottom: 6px;
         }
 
         .section-header h2 {
-          font-size: 2rem;
+          font-size: 1.25rem;
           font-weight: 700;
           color: #fff;
-          margin-bottom: 12px;
         }
 
         .section-header p {
-          font-size: 15px;
+          font-size: 14px;
           color: #6b7280;
+          margin-top: 4px;
         }
 
-        /* Pricing Grid */
-        .pricing-grid {
-          padding: 50px 24px 80px;
-          max-width: 1200px;
-          margin: 0 auto;
+        /* Pricing - Mobile Scroll */
+        .pricing-section {
+          padding: 20px 0;
         }
 
-        .grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 20px;
+        .pricing-scroll {
+          display: flex;
+          gap: 12px;
+          overflow-x: auto;
+          padding: 0 16px 16px;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
         }
 
-        .pricing-card {
-          position: relative;
+        .pricing-scroll::-webkit-scrollbar { display: none; }
+
+        .pricing-grid { display: none; }
+
+        .pricing-card-mobile {
+          flex: 0 0 200px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 16px;
-          padding: 28px 24px;
-          transition: all 0.3s;
+          border-radius: 14px;
+          padding: 16px;
+          position: relative;
         }
 
-        .pricing-card:hover {
-          border-color: rgba(124, 58, 237, 0.3);
-          transform: translateY(-4px);
-        }
-
-        .pricing-card.popular {
+        .pricing-card-mobile.popular {
           border-color: rgba(124, 58, 237, 0.4);
           background: rgba(124, 58, 237, 0.05);
         }
 
-        .popular-badge {
+        .popular-tag {
           position: absolute;
-          top: -10px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: inline-flex;
+          top: 10px;
+          right: 10px;
+          display: flex;
           align-items: center;
-          gap: 4px;
-          padding: 4px 12px;
+          gap: 3px;
+          padding: 3px 8px;
           background: #7c3aed;
           border-radius: 100px;
-          font-size: 11px;
+          font-size: 9px;
           font-weight: 600;
           color: #fff;
-          white-space: nowrap;
+        }
+
+        .card-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          margin-bottom: 12px;
         }
 
         .card-icon {
-          width: 48px;
-          height: 48px;
+          width: 36px;
+          height: 36px;
           display: flex;
           align-items: center;
           justify-content: center;
           background: rgba(124, 58, 237, 0.15);
-          border-radius: 12px;
+          border-radius: 8px;
           color: #a78bfa;
-          margin-bottom: 16px;
+          flex-shrink: 0;
         }
 
-        .pricing-card h3 {
-          font-size: 1.15rem;
+        .card-header h3 {
+          font-size: 14px;
           font-weight: 600;
           color: #fff;
-          margin-bottom: 4px;
+          margin-bottom: 2px;
         }
 
-        .card-description {
-          font-size: 13px;
+        .card-header p {
+          font-size: 11px;
           color: #6b7280;
-          margin-bottom: 16px;
         }
 
         .card-price {
-          margin-bottom: 20px;
-          padding-bottom: 20px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          margin-bottom: 12px;
         }
 
         .price-from {
-          font-size: 12px;
+          font-size: 10px;
           color: #6b7280;
-          margin-right: 4px;
+          margin-right: 3px;
         }
 
         .price-amount {
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: 700;
           color: #fff;
         }
 
-        .price-unit {
-          font-size: 14px;
-          color: #6b7280;
-        }
-
         .price-custom {
-          font-size: 1.25rem;
+          font-size: 1.1rem;
           font-weight: 600;
           color: #a78bfa;
         }
@@ -595,30 +580,19 @@ export default function PricingPage() {
         .card-features {
           list-style: none;
           padding: 0;
-          margin: 0 0 16px;
+          margin: 0 0 12px;
         }
 
         .card-features li {
           display: flex;
           align-items: center;
-          gap: 8px;
-          font-size: 13px;
+          gap: 6px;
+          font-size: 11px;
           color: #9ca3af;
-          padding: 6px 0;
+          padding: 4px 0;
         }
 
-        .card-features svg {
-          color: #22c55e;
-          flex-shrink: 0;
-        }
-
-        .card-note {
-          display: block;
-          font-size: 12px;
-          color: #6b7280;
-          font-style: italic;
-          margin-bottom: 16px;
-        }
+        .card-features svg { color: #22c55e; flex-shrink: 0; }
 
         .card-cta {
           display: flex;
@@ -626,128 +600,126 @@ export default function PricingPage() {
           justify-content: center;
           gap: 6px;
           width: 100%;
-          padding: 12px;
+          padding: 10px;
           background: rgba(124, 58, 237, 0.15);
           border: 1px solid rgba(124, 58, 237, 0.3);
-          border-radius: 10px;
-          font-size: 14px;
+          border-radius: 8px;
+          font-size: 12px;
           font-weight: 600;
           color: #a78bfa;
           text-decoration: none;
-          transition: all 0.2s;
         }
 
-        .card-cta:hover {
-          background: rgba(124, 58, 237, 0.25);
-        }
-
-        .pricing-card.popular .card-cta {
+        .pricing-card-mobile.popular .card-cta {
           background: #7c3aed;
           border-color: #7c3aed;
           color: #fff;
         }
 
-        .pricing-card.popular .card-cta:hover {
-          background: #6d28d9;
-        }
-
         /* Add-Ons */
         .addons-section {
-          padding: 60px 24px;
-          max-width: 800px;
-          margin: 0 auto;
+          padding: 20px 16px;
         }
 
-        .addons-grid {
+        .addons-container {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 12px;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
         }
 
         .addon-item {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 16px 20px;
+          padding: 12px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 10px;
+          border-radius: 8px;
         }
 
         .addon-name {
-          font-size: 14px;
+          font-size: 12px;
           color: #e5e7eb;
         }
 
         .addon-price {
-          font-size: 14px;
+          font-size: 12px;
           font-weight: 600;
           color: #a78bfa;
         }
 
         /* Discounts */
         .discounts-section {
-          padding: 0 24px 60px;
-          max-width: 900px;
-          margin: 0 auto;
+          padding: 20px 16px;
         }
 
-        .discounts-content {
+        .discount-card {
           display: flex;
           flex-direction: column;
           align-items: center;
-          text-align: center;
-          gap: 20px;
-          padding: 32px 24px;
-          background: linear-gradient(
-            135deg,
-            rgba(124, 58, 237, 0.15) 0%,
-            rgba(124, 58, 237, 0.05) 100%
-          );
+          gap: 12px;
+          padding: 20px 16px;
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.05) 100%);
           border: 1px solid rgba(124, 58, 237, 0.25);
-          border-radius: 16px;
+          border-radius: 14px;
+          text-align: center;
         }
 
-        .discounts-icon {
-          color: #a78bfa;
-        }
+        .discount-icon { color: #a78bfa; }
 
-        .discounts-text h3 {
-          font-size: 1.25rem;
-          font-weight: 600;
+        .discount-content h3 {
+          font-size: 16px;
+          font-weight: 700;
           color: #fff;
           margin-bottom: 8px;
         }
 
-        .discounts-text p {
-          font-size: 14px;
-          color: #9ca3af;
-          line-height: 1.6;
+        .discount-items {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 8px;
         }
 
-        .discounts-text strong {
+        .discount-items span {
+          font-size: 11px;
+          color: #9ca3af;
+          padding: 4px 10px;
+          background: rgba(0,0,0,0.3);
+          border-radius: 100px;
+        }
+
+        .discount-items strong { color: #fff; }
+
+        .discount-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 10px 20px;
+          background: #7c3aed;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
           color: #fff;
+          text-decoration: none;
         }
 
         /* FAQ */
         .faq-section {
-          padding: 60px 24px;
-          max-width: 700px;
-          margin: 0 auto;
+          padding: 20px 16px;
         }
 
         .faq-list {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 8px;
         }
 
         .faq-item {
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 12px;
+          border-radius: 10px;
           overflow: hidden;
-          transition: border-color 0.2s;
         }
 
         .faq-item.active {
@@ -757,118 +729,456 @@ export default function PricingPage() {
         .faq-question {
           display: flex;
           align-items: center;
-          gap: 12px;
+          justify-content: space-between;
           width: 100%;
-          padding: 18px 20px;
+          padding: 14px 16px;
           background: none;
           border: none;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 500;
           color: #e5e7eb;
           text-align: left;
           cursor: pointer;
         }
 
-        .faq-question svg {
+        .faq-chevron {
+          color: #6b7280;
+          transition: transform 0.2s;
           flex-shrink: 0;
-          color: #7c3aed;
         }
 
-        .faq-toggle {
-          margin-left: auto;
-          font-size: 18px;
-          color: #6b7280;
-        }
+        .faq-chevron.rotated { transform: rotate(180deg); }
 
         .faq-answer {
-          padding: 0 20px 18px 50px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s;
+        }
+
+        .faq-answer.open {
+          max-height: 200px;
         }
 
         .faq-answer p {
-          font-size: 14px;
+          padding: 0 16px 14px;
+          font-size: 12px;
           color: #9ca3af;
-          line-height: 1.6;
+          line-height: 1.5;
         }
 
         /* Final CTA */
         .final-cta {
-          padding: 80px 24px 100px;
+          padding: 20px 16px 40px;
         }
 
-        .final-cta .cta-content {
-          max-width: 600px;
-          margin: 0 auto;
+        .cta-card {
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.05) 100%);
+          border: 1px solid rgba(124, 58, 237, 0.25);
+          border-radius: 14px;
+          padding: 24px 16px;
           text-align: center;
         }
 
-        .final-cta h2 {
-          font-size: 2rem;
+        .cta-card h2 {
+          font-size: 1.15rem;
           font-weight: 700;
           color: #fff;
-          margin-bottom: 12px;
+          margin-bottom: 6px;
         }
 
-        .final-cta > .cta-content > p {
-          font-size: 16px;
+        .cta-card > p {
+          font-size: 13px;
           color: #9ca3af;
-          margin-bottom: 28px;
-          line-height: 1.6;
+          margin-bottom: 16px;
         }
 
         .cta-buttons {
           display: flex;
           flex-direction: column;
-          gap: 12px;
-          margin-bottom: 24px;
+          gap: 10px;
+          margin-bottom: 16px;
         }
 
-        .cta-trust {
+        .btn-primary {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 600;
+          color: #fff;
+          text-decoration: none;
+          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-secondary {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 600;
+          color: #fff;
+          text-decoration: none;
+        }
+
+        .cta-guarantees {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 16px;
+          gap: 12px;
         }
 
-        .cta-trust span {
+        .cta-guarantees span {
           display: flex;
           align-items: center;
-          gap: 6px;
-          font-size: 13px;
+          gap: 5px;
+          font-size: 11px;
           color: #6b7280;
         }
 
-        .cta-trust svg {
-          color: #22c55e;
-        }
+        .cta-guarantees svg { color: #22c55e; }
 
-        /* Responsive */
+        /* ==================== DESKTOP (640px+) ==================== */
         @media (min-width: 640px) {
+          .desktop-only { display: block; }
+
+          .pricing-hero {
+            padding: 140px 24px 60px;
+          }
+
+          .hero-badge {
+            padding: 8px 16px;
+            font-size: 13px;
+            margin-bottom: 24px;
+          }
+
           .pricing-hero h1 {
-            font-size: 3rem;
+            font-size: 2.75rem;
+            margin-bottom: 16px;
           }
 
-          .hero-ctas {
-            flex-direction: row;
+          .hero-subtitle {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+          }
+
+          .mobile-cta { display: none; }
+
+          .desktop-ctas {
+            display: flex;
             justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
           }
 
-          .grid {
+          .trust-row {
+            gap: 24px;
+          }
+
+          .trust-badge {
+            font-size: 13px;
+            gap: 6px;
+          }
+
+          /* Section Headers */
+          .section-header {
+            margin-bottom: 40px;
+          }
+
+          .section-label {
+            font-size: 12px;
+            margin-bottom: 12px;
+          }
+
+          .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+          }
+
+          .section-header p {
+            font-size: 15px;
+          }
+
+          /* Pricing Grid */
+          .pricing-section {
+            padding: 50px 24px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
+          .pricing-scroll { display: none; }
+
+          .pricing-grid {
+            display: grid;
             grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
           }
 
-          .addons-grid {
-            grid-template-columns: repeat(2, 1fr);
+          .pricing-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: all 0.3s;
           }
 
-          .discounts-content {
+          .pricing-card:hover {
+            border-color: rgba(124, 58, 237, 0.3);
+            transform: translateY(-4px);
+          }
+
+          .pricing-card.popular {
+            border-color: rgba(124, 58, 237, 0.4);
+            background: rgba(124, 58, 237, 0.05);
+          }
+
+          .popular-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            background: #7c3aed;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+          }
+
+          .card-icon-lg {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(124, 58, 237, 0.15);
+            border-radius: 12px;
+            color: #a78bfa;
+            margin-bottom: 16px;
+          }
+
+          .pricing-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+          }
+
+          .card-desc {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 16px;
+          }
+
+          .card-price-lg {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          }
+
+          .card-price-lg .price-from {
+            font-size: 12px;
+            margin-right: 4px;
+          }
+
+          .card-price-lg .price-amount {
+            font-size: 2rem;
+          }
+
+          .price-unit {
+            font-size: 14px;
+            color: #6b7280;
+          }
+
+          .card-price-lg .price-custom {
+            font-size: 1.25rem;
+          }
+
+          .card-features-lg {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px;
+          }
+
+          .card-features-lg li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #9ca3af;
+            padding: 6px 0;
+          }
+
+          .card-features-lg svg { color: #22c55e; }
+
+          .card-note {
+            display: block;
+            font-size: 12px;
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 16px;
+          }
+
+          .card-cta-lg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 12px;
+            background: rgba(124, 58, 237, 0.15);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #a78bfa;
+            text-decoration: none;
+            transition: all 0.2s;
+          }
+
+          .card-cta-lg:hover {
+            background: rgba(124, 58, 237, 0.25);
+          }
+
+          .pricing-card.popular .card-cta-lg {
+            background: #7c3aed;
+            border-color: #7c3aed;
+            color: #fff;
+          }
+
+          /* Add-Ons */
+          .addons-section {
+            padding: 60px 24px;
+            max-width: 900px;
+            margin: 0 auto;
+          }
+
+          .addons-container {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+          }
+
+          .addon-item {
+            padding: 16px 20px;
+            border-radius: 10px;
+          }
+
+          .addon-name { font-size: 14px; }
+          .addon-price { font-size: 14px; }
+
+          /* Discounts */
+          .discounts-section {
+            padding: 0 24px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+          }
+
+          .discount-card {
             flex-direction: row;
-            text-align: left;
             padding: 28px 32px;
+            text-align: left;
+            border-radius: 16px;
+          }
+
+          .discount-content {
+            flex: 1;
+          }
+
+          .discount-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+          }
+
+          .discount-items {
+            justify-content: flex-start;
+            gap: 10px;
+          }
+
+          .discount-items span {
+            font-size: 13px;
+            padding: 6px 14px;
+          }
+
+          .discount-cta {
+            padding: 12px 24px;
+            font-size: 14px;
+          }
+
+          /* FAQ */
+          .faq-section {
+            padding: 60px 24px;
+            max-width: 700px;
+            margin: 0 auto;
+          }
+
+          .faq-list { gap: 12px; }
+
+          .faq-item { border-radius: 12px; }
+
+          .faq-question {
+            padding: 18px 20px;
+            font-size: 14px;
+          }
+
+          .faq-answer p {
+            padding: 0 20px 18px;
+            font-size: 14px;
+            line-height: 1.6;
+          }
+
+          /* Final CTA */
+          .final-cta {
+            padding: 60px 24px 100px;
+          }
+
+          .cta-card {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 32px;
+            border-radius: 20px;
+          }
+
+          .cta-card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+          }
+
+          .cta-card > p {
+            font-size: 16px;
+            margin-bottom: 24px;
           }
 
           .cta-buttons {
             flex-direction: row;
             justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+          }
+
+          .btn-primary, .btn-secondary {
+            padding: 14px 28px;
+            font-size: 15px;
+          }
+
+          .cta-guarantees {
+            gap: 20px;
+          }
+
+          .cta-guarantees span {
+            font-size: 13px;
           }
         }
 
@@ -877,11 +1187,7 @@ export default function PricingPage() {
             font-size: 3.25rem;
           }
 
-          .grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-
-          .addons-grid {
+          .pricing-grid {
             grid-template-columns: repeat(3, 1fr);
           }
         }
@@ -889,4 +1195,3 @@ export default function PricingPage() {
     </main>
   );
 }
-
