@@ -15,34 +15,28 @@ const Masonry = dynamic(() => import("@/components/Masonry"), {
 
 // Gallery items with varying heights for true masonry effect
 const galleryItems = [
-  // Our work
-  { id: 1, img: "/images/poolAfter.png", height: 400 },
-  { id: 2, img: "/images/houseafter.png", height: 520 },
-  { id: 3, img: "/images/sidingafter.png", height: 340 },
-  { id: 4, img: "/images/poolBefore.png", height: 460 },
-  { id: 5, img: "/images/housebefore.png", height: 380 },
-  { id: 6, img: "/images/sidingbefore.png", height: 440 },
-  // Houses & exteriors
-  { id: 7, img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", height: 500 },
-  { id: 8, img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80", height: 360 },
-  { id: 9, img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80", height: 420 },
-  { id: 10, img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80", height: 480 },
-  { id: 11, img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80", height: 400 },
-  { id: 12, img: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&q=80", height: 360 },
-  // More homes
-  { id: 13, img: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80", height: 440 },
-  { id: 14, img: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&q=80", height: 380 },
-  { id: 15, img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80", height: 500 },
-  { id: 16, img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80", height: 420 },
-  { id: 17, img: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&q=80", height: 360 },
-  { id: 18, img: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80", height: 480 },
-  // Driveways & patios
-  { id: 19, img: "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?w=600&q=80", height: 400 },
-  { id: 20, img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80", height: 440 },
-  { id: 21, img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80", height: 380 },
-  { id: 22, img: "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600&q=80", height: 520 },
-  { id: 23, img: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=80", height: 400 },
-  { id: 24, img: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80", height: 460 },
+  // House washing
+  { id: 1, img: "/images/gallery/vinyl-siding-house-washing-pinellas-county.jpg", height: 480 },
+  { id: 2, img: "/images/gallery/house-exterior-soft-wash-st-petersburg.jpg", height: 520 },
+  { id: 3, img: "/images/gallery/gray-house-exterior-pressure-washing.jpg", height: 460 },
+  { id: 4, img: "/images/gallery/yellow-siding-house-washing-florida.jpg", height: 420 },
+  { id: 5, img: "/images/gallery/vinyl-siding-soft-wash-results.jpg", height: 400 },
+  { id: 6, img: "/images/gallery/house-porch-siding-cleaning-pinellas.jpg", height: 440 },
+  // Pool decks
+  { id: 7, img: "/images/gallery/pool-deck-concrete-cleaning-florida.jpg", height: 340 },
+  { id: 8, img: "/images/gallery/backyard-pool-deck-cleaning-florida.jpg", height: 380 },
+  // Decks & walkways
+  { id: 9, img: "/images/gallery/composite-deck-stairs-cleaning-pinellas.jpg", height: 500 },
+  { id: 10, img: "/images/gallery/composite-deck-cleaning-st-petersburg.jpg", height: 460 },
+  { id: 11, img: "/images/gallery/wood-deck-stairs-pressure-washing.jpg", height: 480 },
+  { id: 12, img: "/images/gallery/paver-walkway-pressure-washing-clearwater.jpg", height: 440 },
+  // Before/after originals
+  { id: 13, img: "/images/poolAfter.png", height: 400 },
+  { id: 14, img: "/images/houseafter.png", height: 520 },
+  { id: 15, img: "/images/sidingafter.png", height: 340 },
+  { id: 16, img: "/images/poolBefore.png", height: 460 },
+  { id: 17, img: "/images/housebefore.png", height: 380 },
+  { id: 18, img: "/images/sidingbefore.png", height: 440 },
 ];
 
 export default function GalleryPage() {

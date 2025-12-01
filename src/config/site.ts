@@ -7,26 +7,26 @@ export const siteConfig = {
   legalName: "Stargate Pressure Washing LLC",
   slogan: "Restore Your Property's Shine",
   tagline: "Professional Pressure Washing in Seminole, FL",
-  
+
   // Primary Description (155-160 chars for meta)
   description:
     "Professional pressure washing services in Seminole, FL and Pinellas County. Expert driveway cleaning, house washing, roof cleaning & more. Licensed, insured, 5-star rated. Free estimates!",
-  
+
   // Short Description (for social, mobile)
   shortDescription: "#1 Rated Pressure Washing in Seminole & Pinellas County, FL",
-  
+
   // Extended Description (for about page, schema)
   extendedDescription:
     "Stargate Pressure Washing is Pinellas County's premier exterior cleaning company, delivering exceptional pressure washing and soft wash services since 2020. Our certified technicians use state-of-the-art equipment and eco-friendly solutions to restore residential and commercial properties. From stubborn driveway stains to delicate roof cleaning, we guarantee professional results with 100% satisfaction.",
 
   // URLs
-  url: "https://stargatepressurewashing.com",
-  
+  url: "https://stargatecustomclean.com",
+
   // Contact Information (NAP - critical for local SEO)
   phone: "(352) 843-3425",
   phoneRaw: "+13528433425",
-  email: "info@stargatepressurewashing.com",
-  
+  email: "info@stargatecustomclean.com",
+
   // Physical Address (for Local Business schema)
   address: {
     street: "123 Main Street",
@@ -37,14 +37,14 @@ export const siteConfig = {
     country: "US",
     countryFullName: "United States",
   },
-  
+
   // Geo Coordinates (for Local SEO & Maps)
   geo: {
     latitude: 27.8397,
     longitude: -82.7918,
     radius: "25mi", // Service radius
   },
-  
+
   // Business Hours (for Schema & GMB)
   hours: {
     weekdays: "7:00 AM - 6:00 PM",
@@ -59,12 +59,12 @@ export const siteConfig = {
 
   // Social Profiles (for Schema sameAs)
   social: {
-    facebook: "https://facebook.com/stargatepressurewashing",
-    instagram: "https://instagram.com/stargatepressurewashing",
-    google: "https://g.page/stargatepressurewashing",
-    yelp: "https://yelp.com/biz/stargate-pressure-washing-seminole",
-    nextdoor: "https://nextdoor.com/pages/stargate-pressure-washing-seminole-fl",
-    youtube: "https://youtube.com/@stargatepressurewashing",
+    facebook: "https://facebook.com/stargatecustomclean",
+    instagram: "https://instagram.com/stargatecustomclean",
+    google: "https://g.page/stargatecustomclean",
+    yelp: "https://yelp.com/biz/stargate-custom-clean-seminole",
+    nextdoor: "https://nextdoor.com/pages/stargate-custom-clean-seminole-fl",
+    youtube: "https://youtube.com/@stargatecustomclean",
   },
 
   // === 2025 SEO Keywords (Long-tail + Local + Intent-based) ===
@@ -74,17 +74,17 @@ export const siteConfig = {
     "pressure washing near me",
     "power washing Pinellas County",
     "pressure washing services Seminole",
-    
+
     // Service-Specific Keywords
     "house washing Seminole FL",
-    "driveway cleaning Seminole FL", 
+    "driveway cleaning Seminole FL",
     "roof cleaning Seminole FL",
     "soft wash house cleaning Pinellas County",
     "pool deck cleaning Seminole",
     "paver cleaning Pinellas County",
     "fence cleaning Seminole FL",
     "commercial pressure washing Tampa Bay",
-    
+
     // Location Keywords (Each City)
     "pressure washing Largo FL",
     "pressure washing Clearwater FL",
@@ -92,7 +92,7 @@ export const siteConfig = {
     "pressure washing Indian Rocks Beach",
     "pressure washing Belleair FL",
     "pressure washing Palm Harbor FL",
-    
+
     // Long-Tail Keywords (2025 Voice Search)
     "best pressure washing company near me",
     "how much does pressure washing cost in Florida",
@@ -100,14 +100,14 @@ export const siteConfig = {
     "safe roof cleaning soft wash",
     "eco-friendly pressure washing service",
     "same day pressure washing service",
-    
+
     // Problem-Solution Keywords
     "remove black stains from roof",
     "clean mold off house exterior",
     "remove oil stains from driveway",
     "clean algae from pool deck",
     "restore faded pavers",
-    
+
     // Seasonal Keywords
     "spring cleaning pressure wash",
     "hurricane prep home cleaning",
@@ -126,7 +126,7 @@ export const siteConfig = {
     },
     {
       name: "Largo",
-      state: "FL", 
+      state: "FL",
       county: "Pinellas",
       zip: ["33770", "33771", "33773", "33774", "33778", "33779"],
       isPrimary: true,
@@ -135,7 +135,7 @@ export const siteConfig = {
     {
       name: "Clearwater",
       state: "FL",
-      county: "Pinellas", 
+      county: "Pinellas",
       zip: ["33755", "33756", "33759", "33761", "33763", "33764", "33765", "33767"],
       isPrimary: true,
       description: "Professional cleaning for Clearwater homes and businesses",
@@ -358,7 +358,7 @@ export const siteConfig = {
     count: 500,
     source: "Google Reviews",
   },
-  
+
   // Sample Reviews for Schema
   reviews: [
     {
@@ -371,7 +371,7 @@ export const siteConfig = {
     },
     {
       author: "Sarah T.",
-      location: "Largo, FL", 
+      location: "Largo, FL",
       rating: 5,
       date: "2024-10-28",
       text: "Finally got rid of those ugly black streaks on our roof. The soft wash technique was exactly what we needed. Our roof looks 10 years younger!",
@@ -513,7 +513,7 @@ export const siteConfig = {
 
   // Price range for structured data
   priceRange: "$$",
-  
+
   // Founded year
   foundingYear: 2020,
 
@@ -526,7 +526,7 @@ export const siteConfig = {
 };
 
 // Helper to get service area names only
-export const getServiceAreaNames = () => 
+export const getServiceAreaNames = () =>
   siteConfig.serviceAreas.map(area => area.name);
 
 // Helper to get primary service areas

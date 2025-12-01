@@ -657,11 +657,16 @@ export default function PricingPage() {
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
           gap: 12px;
           padding: 20px 16px;
           background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.05) 100%);
           border: 1px solid rgba(124, 58, 237, 0.25);
           border-radius: 14px;
+          text-align: center;
+        }
+
+        .discount-content {
           text-align: center;
         }
 
