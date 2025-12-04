@@ -71,7 +71,7 @@ export default function ServiceAreasPage() {
           <p className="hero-animate hero-subtitle">
             Professional pressure washing services throughout {siteConfig.address.city} and 
             all of {siteConfig.serviceAreas[0]?.county} County, FL. 
-            Serving a {siteConfig.geo.radius} radius from our home base.
+            Serving a {siteConfig.geo.radiusMiles}-mile radius from our home base.
           </p>
           
           <div className="hero-animate mobile-cta">
