@@ -23,19 +23,10 @@ function ServiceAreaJsonLd() {
     areaServed: siteConfig.serviceAreas.map(area => ({
       "@type": "City",
       name: area.name,
-      containedInPlace: {
-        "@type": "AdministrativeArea",
-        name: `${area.county} County, ${area.state}`,
-      },
     })),
     serviceArea: {
-      "@type": "GeoCircle",
-      geoMidpoint: {
-        "@type": "GeoCoordinates",
-        latitude: siteConfig.geo.latitude,
-        longitude: siteConfig.geo.longitude,
-      },
-      geoRadius: siteConfig.geo.radiusMeters,
+      "@type": "State",
+      name: siteConfig.address.stateFullName,
     },
   };
 

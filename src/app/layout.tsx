@@ -166,56 +166,16 @@ export const viewport: Viewport = {
 // JSON-LD STRUCTURED DATA (2025 Schema.org)
 // ============================================
 
-// Organization Schema (for brand entity)
+// Organization Schema (minimal - LocalBusiness covers most details)
 function OrganizationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
-    legalName: siteConfig.legalName,
     url: siteConfig.url,
-    logo: {
-      "@type": "ImageObject",
-      url: `${siteConfig.url}/logo.png`,
-      width: 512,
-      height: 512,
-    },
-    image: `${siteConfig.url}/og-image.jpg`,
-    description: siteConfig.extendedDescription,
-    foundingDate: siteConfig.foundingYear.toString(),
-    founder: {
-      "@type": "Person",
-      name: siteConfig.founder.name,
-      jobTitle: siteConfig.founder.title,
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteConfig.address.street,
-      addressLocality: siteConfig.address.city,
-      addressRegion: siteConfig.address.state,
-      postalCode: siteConfig.address.zip,
-      addressCountry: siteConfig.address.country,
-    },
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        telephone: siteConfig.phoneRaw,
-        contactType: "customer service",
-        areaServed: "US",
-        availableLanguage: ["English"],
-        contactOption: ["TollFree"],
-      },
-      {
-        "@type": "ContactPoint",
-        telephone: siteConfig.phoneRaw,
-        contactType: "sales",
-        areaServed: "US",
-        availableLanguage: ["English"],
-      },
-    ],
+    logo: `${siteConfig.url}/logo.png`,
     sameAs: Object.values(siteConfig.social).filter(Boolean),
-    slogan: siteConfig.slogan,
   };
 
   return (
@@ -268,13 +228,8 @@ function LocalBusinessJsonLd() {
       },
     })),
     serviceArea: {
-      "@type": "GeoCircle",
-      geoMidpoint: {
-        "@type": "GeoCoordinates",
-        latitude: siteConfig.geo.latitude,
-        longitude: siteConfig.geo.longitude,
-      },
-      geoRadius: siteConfig.geo.radiusMeters,
+      "@type": "State",
+      name: siteConfig.address.stateFullName,
     },
     openingHoursSpecification: siteConfig.hours.openingHoursSpecification.map(spec => ({
       "@type": "OpeningHoursSpecification",
@@ -287,58 +242,9 @@ function LocalBusinessJsonLd() {
       bestRating: 5,
       worstRating: 1,
     },
-    review: siteConfig.reviews.slice(0, 3).map(review => ({
-      "@type": "Review",
-      author: {
-        "@type": "Person",
-        name: review.author,
-      },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: review.rating,
-        bestRating: 5,
-        worstRating: 1,
-      },
-      reviewBody: review.text,
-      datePublished: review.date,
-    })),
     sameAs: Object.values(siteConfig.social).filter(Boolean),
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Pressure Washing Services",
-      itemListElement: siteConfig.services.map((service, index) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          "@id": `${siteConfig.url}/services/${service.id}`,
-          name: service.title,
-          description: service.description,
-          provider: {
-            "@id": `${siteConfig.url}/#localbusiness`,
-          },
-          areaServed: {
-            "@type": "State",
-            name: siteConfig.address.stateFullName,
-          },
-          hasOfferCatalog: {
-            "@type": "OfferCatalog",
-            name: service.title,
-          },
-        },
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          price: service.price.startingAt,
-          priceCurrency: service.price.currency,
-          minPrice: service.price.startingAt,
-        },
-        position: index + 1,
-      })),
-    },
-    // Trust signals
-    isAcceptingNewCustomers: true,
-    paymentAccepted: ["Cash", "Credit Card", "Debit Card", "Check", "Venmo", "Zelle"],
+    paymentAccepted: ["Cash", "Credit Card", "Check"],
     currenciesAccepted: "USD",
-    knowsLanguage: "English",
   };
 
   return (
@@ -349,119 +255,7 @@ function LocalBusinessJsonLd() {
   );
 }
 
-// Service Schema (detailed services for rich results)
-function ServiceJsonLd() {
-  const services = siteConfig.services.map(service => ({
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${siteConfig.url}/services/${service.id}`,
-    name: service.title,
-    description: service.longDescription,
-    provider: {
-      "@id": `${siteConfig.url}/#localbusiness`,
-    },
-    areaServed: siteConfig.serviceAreas.map(area => ({
-      "@type": "City",
-      name: `${area.name}, ${area.state}`,
-    })),
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: service.title,
-      itemListElement: service.features.map((feature, idx) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: feature,
-        },
-        position: idx + 1,
-      })),
-    },
-    offers: {
-      "@type": "Offer",
-      price: service.price.startingAt,
-      priceCurrency: service.price.currency,
-      priceValidUntil: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      availability: "https://schema.org/InStock",
-      validFrom: new Date().toISOString().split('T')[0],
-    },
-    serviceType: service.title,
-    termsOfService: `${siteConfig.url}/terms`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: siteConfig.rating.value,
-      reviewCount: siteConfig.rating.count,
-    },
-  }));
-
-  return (
-    <>
-      {services.map((service, idx) => (
-        <script
-          key={idx}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(service) }}
-        />
-      ))}
-    </>
-  );
-}
-
-// FAQ Schema (critical for AI Overview & rich snippets)
-function FAQJsonLd() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": `${siteConfig.url}/#faq`,
-    mainEntity: siteConfig.faqs.map(faq => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
-
-// HowTo Schema (for process/how it works)
-function HowToJsonLd() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "@id": `${siteConfig.url}/#howto`,
-    name: "How to Get Professional Pressure Washing Service",
-    description: "Follow these simple steps to get your property professionally cleaned by Stargate Pressure Washing.",
-    totalTime: "PT24H",
-    estimatedCost: {
-      "@type": "MonetaryAmount",
-      currency: "USD",
-      value: "149-599",
-    },
-    step: siteConfig.process.map((step, idx) => ({
-      "@type": "HowToStep",
-      position: idx + 1,
-      name: step.title,
-      text: step.description,
-      url: `${siteConfig.url}/#step-${idx + 1}`,
-    })),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
-
-// WebSite Schema (for sitelinks search box)
+// WebSite Schema (minimal)
 function WebsiteJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -469,54 +263,7 @@ function WebsiteJsonLd() {
     "@id": `${siteConfig.url}/#website`,
     name: siteConfig.name,
     url: siteConfig.url,
-    description: siteConfig.description,
-    publisher: {
-      "@id": `${siteConfig.url}/#organization`,
-    },
-    inLanguage: "en-US",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
-
-// WebPage Schema (generic page markup)
-function WebPageJsonLd() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": `${siteConfig.url}/#webpage`,
-    url: siteConfig.url,
-    name: `${siteConfig.name} | Professional Pressure Washing in Seminole, FL`,
-    description: siteConfig.description,
-    isPartOf: {
-      "@id": `${siteConfig.url}/#website`,
-    },
-    about: {
-      "@id": `${siteConfig.url}/#localbusiness`,
-    },
-    primaryImageOfPage: {
-      "@type": "ImageObject",
-      url: `${siteConfig.url}/og-image.jpg`,
-    },
-    datePublished: "2020-01-01",
-    dateModified: new Date().toISOString(),
-    inLanguage: "en-US",
-    breadcrumb: {
-      "@id": `${siteConfig.url}/#breadcrumb`,
-    },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
   };
 
   return (
@@ -541,47 +288,6 @@ function BreadcrumbJsonLd() {
         item: siteConfig.url,
       },
     ],
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
-
-// GeoJSON for Service Areas (Local SEO boost)
-function ServiceAreaJsonLd() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${siteConfig.url}/#servicearea`,
-    name: "Pressure Washing Service Area",
-    provider: {
-      "@id": `${siteConfig.url}/#localbusiness`,
-    },
-    areaServed: siteConfig.serviceAreas.map(area => ({
-      "@type": "City",
-      name: area.name,
-      containedInPlace: {
-        "@type": "AdministrativeArea",
-        name: `${area.county} County, ${area.state}`,
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        postalCode: area.zip.join(", "),
-      },
-    })),
-    serviceArea: {
-      "@type": "GeoCircle",
-      geoMidpoint: {
-        "@type": "GeoCoordinates",
-        latitude: siteConfig.geo.latitude,
-        longitude: siteConfig.geo.longitude,
-      },
-      geoRadius: siteConfig.geo.radiusMeters, // 25 miles in meters (must be number, not string)
-    },
   };
 
   return (
