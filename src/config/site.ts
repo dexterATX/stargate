@@ -3,8 +3,8 @@
 
 export const siteConfig = {
   // Business Identity
-  name: "Stargate Pressure Washing",
-  legalName: "Stargate Pressure Washing LLC",
+  name: "Stargate Custom Clean",
+  legalName: "Stargate Custom Clean LLC",
   slogan: "Restore Your Property's Shine",
   tagline: "Professional Pressure Washing in Seminole, FL",
 
@@ -17,16 +17,16 @@ export const siteConfig = {
 
   // Extended Description (for about page, schema)
   extendedDescription:
-    "Stargate Pressure Washing is Pinellas County's premier exterior cleaning company, delivering exceptional pressure washing and soft wash services since 2020. Our certified technicians use state-of-the-art equipment and eco-friendly solutions to restore residential and commercial properties. From stubborn driveway stains to delicate roof cleaning, we guarantee professional results with 100% satisfaction.",
+    "Stargate Custom Clean is Pinellas County's premier exterior cleaning company, delivering exceptional pressure washing and soft wash services since 2020. Our certified technicians use state-of-the-art equipment and eco-friendly solutions to restore residential and commercial properties. From stubborn driveway stains to delicate roof cleaning, we guarantee professional results with 100% satisfaction.",
 
   // URLs
   url: "https://stargatecustomclean.com",
-  
+
   // Contact Information (NAP - critical for local SEO)
   phone: "(352) 843-3425",
   phoneRaw: "+13528433425",
   email: "info@stargatecustomclean.com",
-  
+
   // Physical Address (for Local Business schema)
   address: {
     street: "123 Main Street",
