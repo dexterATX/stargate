@@ -580,7 +580,7 @@ function ServiceAreaJsonLd() {
         latitude: siteConfig.geo.latitude,
         longitude: siteConfig.geo.longitude,
       },
-      geoRadius: "40234", // 25 miles in meters
+      geoRadius: siteConfig.geo.radiusMeters, // 25 miles in meters (must be number, not string)
     },
   };
 
@@ -624,16 +624,12 @@ export default function RootLayout({
         {/* Business Contact for Click-to-Call */}
         <meta name="contact" content={siteConfig.phone} />
         
-        {/* All Structured Data */}
+        {/* Core Structured Data (global - on all pages) */}
         <OrganizationJsonLd />
         <LocalBusinessJsonLd />
-        <ServiceJsonLd />
-        <FAQJsonLd />
-        <HowToJsonLd />
         <WebsiteJsonLd />
-        <WebPageJsonLd />
         <BreadcrumbJsonLd />
-        <ServiceAreaJsonLd />
+        {/* Note: Page-specific schemas (FAQ, Service, HowTo, ServiceArea) moved to respective page layouts */}
       </head>
       <body
         className={`${outfit.variable} ${inter.variable} antialiased min-h-screen bg-background text-foreground`}

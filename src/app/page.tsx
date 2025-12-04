@@ -58,9 +58,59 @@ export const metadata: Metadata = {
   },
 };
 
+// Homepage-specific JSON-LD schemas
+function FAQJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${siteConfig.url}/#faq`,
+    mainEntity: siteConfig.faqs.map(faq => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+function HowToJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "@id": `${siteConfig.url}/#howto`,
+    name: "How to Get Professional Pressure Washing Service",
+    description: "Follow these simple steps to get your property professionally cleaned.",
+    totalTime: "PT24H",
+    step: siteConfig.process.map((step, idx) => ({
+      "@type": "HowToStep",
+      position: idx + 1,
+      name: step.title,
+      text: step.description,
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 export default function HomePage() {
   return (
     <main role="main" itemScope itemType="https://schema.org/WebPage">
+      {/* Homepage-specific structured data */}
+      <FAQJsonLd />
+      <HowToJsonLd />
+      
       {/* Hero - Primary CTA area */}
       <HeroSection />
       

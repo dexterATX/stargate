@@ -7,8 +7,8 @@
 # Allow all standard crawlers
 User-agent: *
 Allow: /
+Allow: /_next/static/  # Required for page rendering (JS/CSS assets)
 Disallow: /api/
-Disallow: /_next/static/
 Disallow: /admin/
 Disallow: /private/
 

@@ -46,9 +46,14 @@ export function HeroSection() {
 
         {/* Main Headline with SplitText */}
         <div className="hero-headline-wrap">
+          {/* SSR h1 for SEO (hidden when SplitText loads) */}
+          <h1 className="hero-headline hero-headline-ssr">
+            Seminole&apos;s #1 Rated Pressure Washing Service.
+          </h1>
+          {/* Animated h1 (client-side only) */}
           <SplitText
             text="Seminole's #1 Rated Pressure Washing Service."
-            className="hero-headline"
+            className="hero-headline hero-headline-animated"
             delay={50}
             duration={0.6}
             ease="power3.out"
@@ -58,7 +63,7 @@ export function HeroSection() {
             threshold={0.1}
             rootMargin="-20px"
             textAlign="center"
-            tag="h1"
+            tag="div"
             onLetterAnimationComplete={() => {}}
           />
         </div>
@@ -216,6 +221,7 @@ export function HeroSection() {
         
         .hero-headline-wrap {
           margin-bottom: 12px;
+          position: relative;
         }
         
         .hero-headline {
@@ -226,6 +232,26 @@ export function HeroSection() {
           letter-spacing: -0.02em !important;
           padding-bottom: 8px !important;
           overflow: visible !important;
+          margin: 0 !important;
+        }
+        
+        /* SSR headline - visible by default, hidden when JS loads */
+        .hero-headline-ssr {
+          display: block;
+        }
+        
+        /* Animated headline - hidden by default until SplitText renders */
+        .hero-headline-animated {
+          display: none;
+        }
+        
+        /* When JS loads, hide SSR and show animated */
+        .hero-headline-wrap:has(.split-parent) .hero-headline-ssr {
+          display: none;
+        }
+        
+        .hero-headline-wrap:has(.split-parent) .hero-headline-animated {
+          display: block;
         }
         
         .hero-headline .split-parent,
