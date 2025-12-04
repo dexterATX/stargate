@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 
 // 2025 SEO Optimized Metadata for Services Page
 export const metadata: Metadata = {
-  title: "Professional Pressure Washing Services | Seminole & Pinellas County FL",
+  title: "Pressure Washing Services | Seminole FL",
   description:
     `Expert pressure washing services in Seminole, FL. House washing from $199, driveway cleaning from $149, roof soft wash from $299. ⭐ ${siteConfig.rating.count}+ 5-star reviews. Licensed & insured. Free estimates!`,
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "/services",
   },
   openGraph: {
-    title: `Professional Pressure Washing Services | ${siteConfig.name}`,
+    title: "Pressure Washing Services | Stargate",
     description:
       `Expert pressure washing in Seminole & Pinellas County. House washing, driveway cleaning, roof cleaning & more. ${siteConfig.rating.count}+ 5-star reviews. Free estimates!`,
     url: `${siteConfig.url}/services`,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Pressure Washing Services | ${siteConfig.name}`,
+    title: "Pressure Washing Services | Stargate",
     description: "House washing, driveway cleaning, roof cleaning & more. Free estimates!",
   },
 };
@@ -63,8 +63,7 @@ function ServicesPageJsonLd() {
         description: service.description,
         url: `${siteConfig.url}/services/${service.id}`,
         provider: {
-          "@type": "LocalBusiness",
-          name: siteConfig.name,
+          "@id": `${siteConfig.url}/#localbusiness`,
         },
         offers: {
           "@type": "Offer",

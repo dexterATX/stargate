@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 
 // 2025 SEO Optimized Metadata for Gallery Page
 export const metadata: Metadata = {
-  title: `Before & After Gallery | Pressure Washing Results | ${siteConfig.name}`,
+  title: "Before & After Gallery | Pressure Washing Results",
   description:
     `See real before and after pressure washing results from ${siteConfig.name}. Browse our gallery of driveway cleaning, house washing, roof cleaning, and more transformations in Seminole & Pinellas County.`,
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: "/gallery",
   },
   openGraph: {
-    title: `Before & After Gallery | ${siteConfig.name}`,
+    title: "Before & After Gallery | Stargate Pressure Washing",
     description: "See real pressure washing transformations. Browse our gallery of driveway, house, and roof cleaning results.",
     url: `${siteConfig.url}/gallery`,
     type: "website",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Before & After Gallery | ${siteConfig.name}`,
+    title: "Before & After Gallery | Stargate",
     description: "See real pressure washing transformations in Seminole & Pinellas County.",
   },
 };
@@ -49,16 +49,13 @@ function GalleryPageJsonLd() {
     description: "Before and after photos showcasing our pressure washing results",
     url: `${siteConfig.url}/gallery`,
     author: {
-      "@type": "LocalBusiness",
       "@id": `${siteConfig.url}/#localbusiness`,
-      name: siteConfig.name,
     },
     about: {
       "@type": "Service",
       name: "Pressure Washing Services",
       provider: {
-        "@type": "LocalBusiness",
-        name: siteConfig.name,
+        "@id": `${siteConfig.url}/#localbusiness`,
       },
     },
   };

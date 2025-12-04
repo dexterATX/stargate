@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 
 // 2025 SEO Optimized Metadata for Pricing Page
 export const metadata: Metadata = {
-  title: `Pressure Washing Prices | Cost Guide 2025 | ${siteConfig.name}`,
+  title: "Pressure Washing Prices | Cost Guide 2025",
   description:
     `Transparent pressure washing pricing in Seminole, FL. House washing from $199, driveways from $149, roof cleaning from $299. No hidden fees, free estimates. See our full price guide.`,
   keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: "/pricing",
   },
   openGraph: {
-    title: `Pressure Washing Prices & Cost Guide | ${siteConfig.name}`,
+    title: "Pressure Washing Prices | Stargate",
     description: "Transparent pricing. House washing from $199, driveways from $149. No hidden fees. Get your free estimate today!",
     url: `${siteConfig.url}/pricing`,
     type: "website",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Pressure Washing Prices | ${siteConfig.name}`,
+    title: "Pressure Washing Prices | Stargate",
     description: "Transparent pricing. House washing from $199, driveways from $149. Free estimates!",
   },
 };
@@ -63,9 +63,7 @@ function PricingPageJsonLd() {
         priceValidUntil: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         availability: "https://schema.org/InStock",
         seller: {
-          "@type": "LocalBusiness",
           "@id": `${siteConfig.url}/#localbusiness`,
-          name: siteConfig.name,
         },
         itemOffered: {
           "@type": "Service",

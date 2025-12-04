@@ -21,12 +21,12 @@ export const siteConfig = {
 
   // URLs
   url: "https://stargatecustomclean.com",
-
+  
   // Contact Information (NAP - critical for local SEO)
   phone: "(352) 843-3425",
   phoneRaw: "+13528433425",
   email: "info@stargatecustomclean.com",
-
+  
   // Physical Address (for Local Business schema)
   address: {
     street: "123 Main Street",
@@ -42,7 +42,8 @@ export const siteConfig = {
   geo: {
     latitude: 27.8397,
     longitude: -82.7918,
-    radius: "25mi", // Service radius
+    radiusMiles: 25, // Service radius in miles
+    radiusMeters: 40234, // 25 miles in meters (for schema.org)
   },
 
   // Business Hours (for Schema & GMB)

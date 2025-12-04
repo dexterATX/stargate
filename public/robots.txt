@@ -1,6 +1,6 @@
 # =====================================================
 # Robots.txt for Stargate Pressure Washing
-# https://stargatepressurewashing.com
+# https://stargatecustomclean.com
 # Last Updated: 2025
 # =====================================================
 
@@ -48,7 +48,7 @@ User-agent: Slurp
 Allow: /
 
 # Sitemap locations
-Sitemap: https://stargatepressurewashing.com/sitemap.xml
+Sitemap: https://stargatecustomclean.com/sitemap.xml
 
 # Host directive (for Yandex)
-Host: https://stargatepressurewashing.com
+Host: https://stargatecustomclean.com

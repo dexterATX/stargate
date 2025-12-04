@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 
 // 2025 SEO Optimized Metadata for Contact Page
 export const metadata: Metadata = {
-  title: `Contact Us | Free Pressure Washing Estimate | ${siteConfig.name}`,
+  title: "Contact Us | Free Pressure Washing Estimate",
   description:
     `Get a free pressure washing estimate in Seminole & Pinellas County. Call ${siteConfig.phone} or fill out our form. Same-day response, no-obligation quotes. Licensed & insured.`,
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     canonical: "/contact",
   },
   openGraph: {
-    title: `Get a Free Estimate | ${siteConfig.name}`,
+    title: "Get a Free Estimate | Stargate Pressure Washing",
     description: `Contact us for a free pressure washing quote. Call ${siteConfig.phone} or submit our quick form. Same-day response guaranteed!`,
     url: `${siteConfig.url}/contact`,
     type: "website",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Contact Us | ${siteConfig.name}`,
+    title: "Contact Us | Stargate Pressure Washing",
     description: `Get a free pressure washing estimate. Call ${siteConfig.phone} today!`,
   },
 };
@@ -48,26 +48,7 @@ function ContactPageJsonLd() {
     description: "Get a free pressure washing estimate. Contact us by phone, email, or form.",
     url: `${siteConfig.url}/contact`,
     mainEntity: {
-      "@type": "LocalBusiness",
       "@id": `${siteConfig.url}/#localbusiness`,
-      name: siteConfig.name,
-      telephone: siteConfig.phone,
-      email: siteConfig.email,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: siteConfig.address.street,
-        addressLocality: siteConfig.address.city,
-        addressRegion: siteConfig.address.state,
-        postalCode: siteConfig.address.zip,
-        addressCountry: siteConfig.address.country,
-      },
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: siteConfig.phoneRaw,
-        contactType: "customer service",
-        availableLanguage: "English",
-        areaServed: "US-FL",
-      },
     },
   };
 

@@ -20,7 +20,7 @@ import { siteConfig } from "@/config/site";
 
 // 2025 SEO Optimized Homepage Metadata
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | #1 Pressure Washing in Seminole & Pinellas County, FL`,
+  title: "#1 Pressure Washing in Seminole & Pinellas County FL",
   description: `Professional pressure washing in Seminole, FL. ⭐ ${siteConfig.rating.count}+ 5-star reviews. House washing from $199, driveway cleaning from $149, roof soft wash from $299. Licensed & insured. Free estimates! Call ${siteConfig.phone}`,
   keywords: [
     "pressure washing Seminole FL",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "exterior cleaning services Pinellas",
   ],
   openGraph: {
-    title: `${siteConfig.name} | #1 Rated Pressure Washing in Seminole, FL`,
+    title: "#1 Rated Pressure Washing in Seminole FL",
     description: `Transform your property with professional pressure washing. ${siteConfig.rating.count}+ happy customers in Pinellas County. House washing, driveway cleaning, roof soft wash & more. Free estimates, same-day service!`,
     type: "website",
     url: siteConfig.url,
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | #1 Pressure Washing Seminole FL`,
+    title: "#1 Pressure Washing Seminole FL",
     description: `${siteConfig.rating.count}+ 5-star reviews. House washing, driveway cleaning, roof soft wash. Free estimates!`,
   },
   alternates: {

@@ -274,7 +274,7 @@ function LocalBusinessJsonLd() {
         latitude: siteConfig.geo.latitude,
         longitude: siteConfig.geo.longitude,
       },
-      geoRadius: siteConfig.geo.radius,
+      geoRadius: siteConfig.geo.radiusMeters,
     },
     openingHoursSpecification: siteConfig.hours.openingHoursSpecification.map(spec => ({
       "@type": "OpeningHoursSpecification",
@@ -314,8 +314,7 @@ function LocalBusinessJsonLd() {
           name: service.title,
           description: service.description,
           provider: {
-            "@type": "LocalBusiness",
-            name: siteConfig.name,
+            "@id": `${siteConfig.url}/#localbusiness`,
           },
           areaServed: {
             "@type": "State",
@@ -359,9 +358,7 @@ function ServiceJsonLd() {
     name: service.title,
     description: service.longDescription,
     provider: {
-      "@type": "LocalBusiness",
       "@id": `${siteConfig.url}/#localbusiness`,
-      name: siteConfig.name,
     },
     areaServed: siteConfig.serviceAreas.map(area => ({
       "@type": "City",

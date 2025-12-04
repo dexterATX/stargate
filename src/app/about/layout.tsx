@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 
 // 2025 SEO Optimized Metadata for About Page
 export const metadata: Metadata = {
-  title: `About Us | ${siteConfig.name} - Seminole's Trusted Pressure Washing Team`,
+  title: "About Us | Seminole's Trusted Cleaning Team",
   description:
     `Family-owned pressure washing company serving Pinellas County since ${siteConfig.foundingYear}. Licensed, insured, PWNA certified. ${siteConfig.rating.count}+ 5-star reviews. Meet the team behind Seminole's #1 rated exterior cleaning service.`,
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: "/about",
   },
   openGraph: {
-    title: `About ${siteConfig.name} | Seminole's Trusted Pressure Washing Team`,
+    title: "About Us | Seminole's Trusted Cleaning Team",
     description: `Family-owned since ${siteConfig.foundingYear}. Licensed, insured, and ${siteConfig.rating.count}+ 5-star reviews. Learn why Pinellas County trusts us.`,
     url: `${siteConfig.url}/about`,
     type: "website",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `About Us | ${siteConfig.name}`,
+    title: "About Us | Stargate Pressure Washing",
     description: `Family-owned pressure washing serving Pinellas County since ${siteConfig.foundingYear}.`,
   },
 };
@@ -49,27 +49,7 @@ function AboutPageJsonLd() {
     description: siteConfig.extendedDescription,
     url: `${siteConfig.url}/about`,
     mainEntity: {
-      "@type": "LocalBusiness",
       "@id": `${siteConfig.url}/#localbusiness`,
-      name: siteConfig.name,
-      description: siteConfig.extendedDescription,
-      foundingDate: siteConfig.foundingYear.toString(),
-      founder: {
-        "@type": "Person",
-        name: siteConfig.founder.name,
-        jobTitle: siteConfig.founder.title,
-      },
-      numberOfEmployees: {
-        "@type": "QuantitativeValue",
-        value: "5-10",
-      },
-      knowsAbout: [
-        "Pressure Washing",
-        "Soft Wash Cleaning",
-        "Exterior Cleaning",
-        "Roof Cleaning",
-        "Concrete Cleaning",
-      ],
     },
   };
 
