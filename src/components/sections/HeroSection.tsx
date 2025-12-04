@@ -50,7 +50,7 @@ export function HeroSection() {
           <h1 className="hero-headline hero-headline-ssr">
             Seminole&apos;s #1 Rated Pressure Washing Service.
           </h1>
-          {/* Animated h1 (client-side only) */}
+          {/* Animated version (client-side only, decorative) */}
           <SplitText
             text="Seminole's #1 Rated Pressure Washing Service."
             className="hero-headline hero-headline-animated"
@@ -63,7 +63,7 @@ export function HeroSection() {
             threshold={0.1}
             rootMargin="-20px"
             textAlign="center"
-            tag="div"
+            tag="p"
             onLetterAnimationComplete={() => {}}
           />
         </div>
